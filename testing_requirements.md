@@ -1,5 +1,5 @@
 
-#R3
+## R3
 
 **Test case R3.1 - If the user is not logged in, redirect to login page**
 ```
