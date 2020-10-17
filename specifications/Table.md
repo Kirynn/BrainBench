@@ -26,3 +26,9 @@
 | For any other requests except the ones above, the system should return a 404 error                                                                   | R8.1.5       | Make sure that for /logout the system does not 404 error                                                                                             |
 | For any other requests except the ones above, the system should return a 404 error                                                                   | R8.1.6       | Make sure that for /buy the system does not 404 error                                                                                                |
 | For any other requests except the ones above, the system should return a 404 error                                                                   | R8.1.7       | Make sure that for /sell the system does not 404 error                                                                                               |
+
+test plan: TO FILL OUT
+
+How did your team organize the documentations of the test cases (e.g. where did you store the test case markdown file for each team member).
+Your understanding of how the chosen testing framework works to test the frontend, including your understandings of when and how the test cases will be running directly on GitHub.
+How are you going to organize different test case code files? (a folder for a specification?)
