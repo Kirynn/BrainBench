@@ -49,3 +49,13 @@
 | For any other requests except the ones above, the system should return a 404 error                                                                   | R8.1.5       | Make sure that for /logout the system does not 404 error                                                                                             |
 | For any other requests except the ones above, the system should return a 404 error                                                                   | R8.1.6       | Make sure that for /buy the system does not 404 error                                                                                                |
 | For any other requests except the ones above, the system should return a 404 error                                                                   | R8.1.7       | Make sure that for /sell the system does not 404 error                                                                                               |
+
+
+
+
+# Test Plan
+1. The first thing that we did when we saw the assignment was to have a meeting where we discusssed who would do what. To split up the work evenly we decided that whoever did a certain part with more specifications would also do a part with proportionally less work (e.g. whoever did 1 [13 parts] would also do 8 [1 part]), this ensured not team member would be overworked.
+
+2. We understand that when a commit is made, a test is then made via the ./github/workflows/pythonapp.yml file. It then runs tests that are specificed in pytest (found in ./qa327). These tests will then open a browser via the selenium library and then execute the given commands and validate the URL or elements based on the specification given in our specification files. (R1-R8.md).
+
+3. To organize the test case code files we will create 8 different folders in ./qa327_test, each according to [R1.md ... R8.md]. Each of these folders will contain the relevant testing code for each test case.
