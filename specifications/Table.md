@@ -46,7 +46,6 @@
 |                                                           The ticket-buying form can be posted to /buy                                                           |    R3.10.2   |      Check to see if an error shows when there is no data      |
 |                                                         The   ticket-update form can be posted to /update                                                        |    R3.11.1   |         Check to see if data gets posted when submitted        |
 |                                                         The   ticket-update form can be posted to /update                                                        |    R3.11.2   |      Check to see if an error shows when there is no data      |
-
 |The name of the ticket is alphanumeric-only|R4.1.1|Check if the selling actions succeed when the ticket names is alphanumeric-only|
 |Space allowed only if it is not the first or the last character|R4.1.2|Check if the selling actions succeed when the ticket names doesn't start or end with a space|
 |The name of the ticket is no longer than 60 characters|R4.2.1|Check if the selling actions succeed when the ticket name is 60 characters or less|
