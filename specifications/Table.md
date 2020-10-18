@@ -24,8 +24,8 @@
 |Validate the registration page has a email field|R2.3.1|Check that the user has somewhere to enter their email|
 |Validate the registration page has a `#password` field|R2.3.2|Make sure the user has somewhere to enter their password|
 |Validate the registration page has a `#password2` field|R2.3.3|Make sure the user has a field to double check their password|
-|Validate that the /register page contains a `#name` field|R.3.4|Make sure the user has a field to enter their name|
-|Validate the registration page `#email` field accepts valid inputs|R4.4.1|Check to make sure the user can only enter valid emails|
+|Validate that the /register page contains a `#name` field|R2.3.4|Make sure the user has a field to enter their name|
+|Validate the registration page `#email` field accepts valid inputs|R2.4.1|Check to make sure the user can only enter valid emails|
 |Validate that an email is not in use|R2.4.2|Make sure the user has not already created an account|
 |Validate that the field `#password` acceps valid inputs|R2.4.3|Make sure the user enters a password that is: minimum length 6, at least one upper case, at least one lower case, and at least one special character|
 |Validate that the field `#password2` accepts valid inputs|R2.4.4|Make sure their second password is: minimum length 6, at least one upper case, at least one lower case, and at least one special character|
