@@ -1,29 +1,5 @@
-
 |Specification|Test Case ID|Purpose|
 |:-:|:-:|:-:|
-|If the user has logged in, redirect back to the user profile page /|R2.1.1|Make sure the user can see their profile page|
-|If the user is not logged in, show the user registration page with the correct fields|R2.1.2|Check to make sure the user can see the register|
-|The registration can be submitted as a POST request to /register|R2.2.3|Check to see that the user's request to make an account is recieved by the backend|
-|Validate the registration page has a email field|R2.3.1|Check that the user has somewhere to enter their email|
-|Validate the registration page has a `#password` field|R2.3.2|Make sure the user has somewhere to enter their password|
-|Validate the registration page has a `#password2` field|R2.3.3|Make sure the user has a field to double check their password|
-|Validate that the /register page contains a `#name` field|R.3.4|Make sure the user has a field to enter their name|
-|Validate the registration page `#email` field accepts valid inputs|R4.4.1|Check to make sure the user can only enter valid emails|
-|Validate that an email is not in use|R2.4.2|Make sure the user has not already created an account|
-|Validate that the field `#password` acceps valid inputs|R2.4.3|Make sure the user enters a password that is: minimum length 6, at least one upper case, at least one lower case, and at least one special character|
-|Validate that the field `#password2` accepts valid inputs|R2.4.4|Make sure their second password is: minimum length 6, at least one upper case, at least one lower case, and at least one special character|
-|Validate that the `#password` and `#password2` fields recieve a matching input|R2.4.5|Check that the registration will procede if and only if the two passwords enter match|
-|Validate that the `#name` field takes the correct input|R2.4.6|Make sure only alphanumeric names are allowed with spaces not allowed at the beginning or end and is at least length 2 and at most 20 characters|
-|Validate that a user is created properly|R2.5.1|Validate that a user when created is created in the backend with the correct parameters|
-||
-|The name of the ticket must be alphanumeric|R6.1.1|Ensure the the user can only enter ticket names that are alphanumeric|
-|The name of the ticket may not have a space at the start or end|R6.1.2|Make sure there are no spaces at the start or the end of the entered ticket name|
-|The name of the ticket may not be longer then 60 characters|R6.1.3|Check to make sure the ticket named entered is less then 61 characters.|
-|The user cannot orders more then 0 tickets|R6.2.1|Check to make sure a user cannot order 0 tickets|
-|The user can only order at most 100 tickets|R6.2.2|Check to make sure a user cannot more then 100 tickets.|
-|The requested ticket is in the database|R6.3.1|Check to make sure the database contains the ticket that the user is looking for|
-|The requested ticket has enough stock|R6.3.2|Check to make sure the user cannot order more tickets then there are available|
-|The user has enough funds to purchase the ticket|R.6.4.1|Check to make sure the user cannot order more tickets then they can afford|
 | If the user hasn't logged in, show the login page                                                                                                    | R1.1         | Make sure user can see the login page                                                                                                                |
 | the login page has a message that by default says 'please login'                                                                                     | R1.2         | Make sure user knows to log in                                                                                                                       |
 | If the user has logged in, redirect to the user profile page                                                                                         | R1.3         | Make sure that the user can see their profile page once logged in                                                                                    |
@@ -42,6 +18,62 @@
 | For any formatting errors, render the login page and show the message 'email/password format is incorrect.'                                          | R1.9.2       | Render login page when format is incorrect                                                                                                           |
 | If email/password are correct, redirect to /                                                                                                         | R1.10.1      | Make sure that the user can log in                                                                                                                   |
 | Otherwise, redirect to /login and show message 'email/password combination incorrect'                                                                | R1.10.2      | Make sure that the user knows that they cannot log in due to username/password being incorrect                                                       |
+|If the user has logged in, redirect back to the user profile page /|R2.1.1|Make sure the user can see their profile page|
+|If the user is not logged in, show the user registration page with the correct fields|R2.1.2|Check to make sure the user can see the register|
+|The registration can be submitted as a POST request to /register|R2.2.3|Check to see that the user's request to make an account is recieved by the backend|
+|Validate the registration page has a email field|R2.3.1|Check that the user has somewhere to enter their email|
+|Validate the registration page has a `#password` field|R2.3.2|Make sure the user has somewhere to enter their password|
+|Validate the registration page has a `#password2` field|R2.3.3|Make sure the user has a field to double check their password|
+|Validate that the /register page contains a `#name` field|R2.3.4|Make sure the user has a field to enter their name|
+|Validate the registration page `#email` field accepts valid inputs|R2.4.1|Check to make sure the user can only enter valid emails|
+|Validate that an email is not in use|R2.4.2|Make sure the user has not already created an account|
+|Validate that the field `#password` acceps valid inputs|R2.4.3|Make sure the user enters a password that is: minimum length 6, at least one upper case, at least one lower case, and at least one special character|
+|Validate that the field `#password2` accepts valid inputs|R2.4.4|Make sure their second password is: minimum length 6, at least one upper case, at least one lower case, and at least one special character|
+|Validate that the `#password` and `#password2` fields recieve a matching input|R2.4.5|Check that the registration will procede if and only if the two passwords enter match|
+|Validate that the `#name` field takes the correct input|R2.4.6|Make sure only alphanumeric names are allowed with spaces not allowed at the beginning or end and is at least length 2 and at most 20 characters|
+|Validate that a user is created properly|R2.5.1|Validate that a user when created is created in the backend with the correct parameters|
+|                                                      If the user is not logged in, redirect to   login page                                                      |     R3.1     |      See if trying to acess / will redirect user to /login     |
+|                                                        This page shows a header 'Hi {}'.format(user.name)                                                        |     R3.2     |                See if name is formatted to spec                |
+|                                                                   This page shows user balance.                                                                  |     R3.3     |             Check if balance is shown as specified             |
+|                                                       This page shows a logout link, pointing to   /logout                                                       |     R3.4     |              Check if logout link goes to /logout              |
+| This page   lists all available tickets. Information including the quantity of each  ticket, the owner's email, and the price, for tickets that are not expired. |     R3.5     | Check if ticket information is received and displayed properly |
+|                      This page contains a form that a user can submit new tickets for sell.  Fields: name, quantity, price, expiration date                      |     R3.6     |       See if ticket submission form fucntions as intended      |
+|                                         This page contains a form that a user can buy new tickets. Fields: name, quantity                                        |     R3.7     |          Check if purchasing tickets works as expected         |
+|                        This page contains a form that a user can update existing tickets.  Fields: name, quantity, price, expiration date                        |     R3.8     |      Check to see if user can update tickets as specified      |
+|                                                          The ticket-selling form can be posted to /sell                                                          |    R3.9.1    |         Check to see if data gets posted when submitted        |
+|                                                          The ticket-selling form can be posted to /sell                                                          |    R3.9.2    |      Check to see if an error shows when there is no data      |
+|                                                           The ticket-buying form can be posted to /buy                                                           |    R3.10.1   |         Check to see if data gets posted when submitted        |
+|                                                           The ticket-buying form can be posted to /buy                                                           |    R3.10.2   |      Check to see if an error shows when there is no data      |
+|                                                         The   ticket-update form can be posted to /update                                                        |    R3.11.1   |         Check to see if data gets posted when submitted        |
+|                                                         The   ticket-update form can be posted to /update                                                        |    R3.11.2   |      Check to see if an error shows when there is no data      |
+|The name of the ticket is alphanumeric-only|R4.1.1|Check if the selling actions succeed when the ticket names is alphanumeric-only|
+|Space allowed only if it is not the first or the last character|R4.1.2|Check if the selling actions succeed when the ticket names doesn't start or end with a space|
+|The name of the ticket is no longer than 60 characters|R4.2.1|Check if the selling actions succeed when the ticket name is 60 characters or less|
+|The quantity of the tickets has to be more than 0, and less than or equal to 100|R4.3.1|Check if the selling actions succeed when the ticket quantity is between 10 and 100 (inclusive)|
+|The price of the tickets has to be more than or equal to 10, and less than or equal to 100|R4.4.1|Check if the selling actions succeed when the ticket quantity is between 10 and 100 (inclusive)|
+|Date must be given in the format YYYYMMDD|R4.5.1|Check if the selling actions succeed when the ticket date is in the correct format (e.g. 20200901)|
+|For any errors, redirect back to / and show an error message|R4.6.1|Shows error message on / in the case of an error|
+|The added new ticket information will be posted on the user profile page|R4.7.1|Displays information on ticket added|
+|The name of the ticket is alphanumeric-only|R5.1.1|Check if the selling actions succeed when the ticket names is alphanumeric-only|
+|Space allowed only if it is not the first or the last character|R5.1.2|Check if the selling actions succeed when the ticket names doesn't start or end with a space|
+|The name of the ticket is no longer than 60 characters|R5.2.1|Check if the selling actions succeed when the ticket name is 60 characters or less|
+|The quantity of the tickets has to be more than 0, and less than or equal to 100|R5.3.1|Check if the selling actions succeed when the ticket quantity is between 10 and 100 (inclusive)|
+|The price of the tickets has to be more than or equal to 10, and less than or equal to 100|R5.4.1|Check if the selling actions succeed when the ticket quantity is between 10 and 100 (inclusive)|
+|Date must be given in the format YYYYMMDD|R5.5.1|Check if the selling actions succeed when the ticket date is in the correct format (e.g. 20200901)|
+|The ticket of the given name must exist|R5.6.1|Makes sure the ticket isn't None|
+|For any errors, redirect back to / and show an error message|R5.7.1|Shows error message on / in the case of an error|
+|The name of the ticket must be alphanumeric|R6.1.1|Ensure the the user can only enter ticket names that are alphanumeric|
+|The name of the ticket may not have a space at the start or end|R6.1.2|Make sure there are no spaces at the start or the end of the entered ticket name|
+|The name of the ticket may not be longer then 60 characters|R6.1.3|Check to make sure the ticket named entered is less then 61 characters.|
+|The user cannot orders more then 0 tickets|R6.2.1|Check to make sure a user cannot order 0 tickets|
+|The user can only order at most 100 tickets|R6.2.2|Check to make sure a user cannot more then 100 tickets.|
+|The requested ticket is in the database|R6.3.1|Check to make sure the database contains the ticket that the user is looking for|
+|The requested ticket has enough stock|R6.3.2|Check to make sure the user cannot order more tickets then there are available|
+|The user has enough funds to purchase the ticket|R.6.4.1|Check to make sure the user cannot order more tickets then they can afford|
+|          Logout will   invalid the current session and redirect to the login page.  After logout, the user shouldn't be able to access restricted pages.         |    R7.1.1    |             Check if logged out user cannot access /           |
+|          Logout will invalid the   current session and redirect to the login page.  After logout, the user shouldn't be able to access restricted pages.         |    R7.1.2    |           Check if logged out user cannot access /sell         |
+|          Logout will invalid the   current session and redirect to the login page.  After logout, the user shouldn't be able to access restricted pages.         |    R7.1.3    |          Check if logged out user cannot access /update        |
+|          Logout will invalid the   current session and redirect to the login page.  After logout, the user shouldn't be able to access restricted pages.         |    R7.1.4    |           Check if logged out user cannot access /buy          |
 | For any other requests except the ones above, the system should return a 404 error                                                                   | R8.1.1       | Make sure that any other request the system returns a 404 error                                                                                      |
 | For any other requests except the ones above, the system should return a 404 error                                                                   | R8.1.2       | Make sure that for / the system does not 404 error                                                                                                   |
 | For any other requests except the ones above, the system should return a 404 error                                                                   | R8.1.3       | Make sure that for /login the system does not 404 error                                                                                              |
@@ -59,3 +91,4 @@
 2. We understand that when a commit is made, a test is then made via the ./github/workflows/pythonapp.yml file. It then runs tests that are specificed in pytest (found in ./qa327). These tests will then open a browser via the selenium library and then execute the given commands and validate the URL or elements based on the specification given in our specification files. (R1-R8.md).
 
 3. To organize the test case code files we will create 8 different folders in ./qa327_test, each according to [R1.md ... R8.md]. Each of these folders will contain the relevant testing code for each test case.
+
