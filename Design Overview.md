@@ -47,8 +47,8 @@
     * Check that the password input is up to the protocol set by the specification
       * Password has required complexity: minimum length 6, at least one upper case, at least one lower case, and at least one special character
 ---
-### R3 - /
-* Template: index.html
+# R3 - /
+## Template: index.html
   * Have a `button#logout` element
   * Have a `header#welcome` element
   * Have a `div#balance` element
@@ -80,27 +80,27 @@
         * A `input#update_expiration element`
         * A `button#submit_update element`
           * The above information should be sent to `/update` as a POST request when the button is clicked.
-* Frontend.py:
+## Frontend.py:
   * If not logged in, redirects back to `/login` R1
   * Get all tickets via `backend.get_available_tickets()`
   * If logged in, return `render_template('index.html', user=user, tickets=tickets)`
     * Displays the `index.html` template with the user information
-* Backend.py:
+## Backend.py:
   * `get_available_tickets()`
     * Shows the forms of the available tickets
       * Information shown includes quantity of each ticket, owner's email
     * Call a method to check if the date for tickets has passed
       * If not, show price.
 ---
-- R7 - `/logout`
-* Template: `login.html`
-* Frontend.py:
+# R7 - `/logout`
+## Template: `login.html`
+## Frontend.py:
   * `logout()`
     * Removes `'logged_in'` from session
     * Redirects user to the `/login page`
 ---
-- R8 - `/*`
-* Template: `404.html`
+# R8 - `/*`
+## Template: `404.html`
   * Have a `h1#404-message`
   * Have a `h3#funny`
     * "Seat's taken"
@@ -111,7 +111,7 @@
     * "No loitering, get outta here"
     * "Please remain seated during takeoff and landing"
     * "You can't sit with us."
-* Frontend.py:
+## Frontend.py:
   * `page_not_found()`
     * Decorated with `@app.errorhandler(404)`
     * Serves the `404.html` page, with `404` status code
