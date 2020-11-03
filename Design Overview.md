@@ -47,58 +47,58 @@
         - Password has required complexity: minimum length 6, at least one upper case, at least one lower case, and at least one special character
 - R3 - /
   - Template: index.html
-    - Have a button#logout element
-    - Have a header#welcome element
-    - Have a div#balance element
-    - Have a table#tickets element displaying all available tickets
-    - Have a button.buy_ticket for each ticket in the table
+    - Have a `button#logout` element
+    - Have a `header#welcome` element
+    - Have a `div#balance` element
+    - Have a `table#tickets` element displaying all available tickets
+    - Have a `button.buy_ticket` for each ticket in the table
       - When clicked the button should display the following
-        - A form#buy_ticket_form element for purchasing new forms
-        - A input#buy_ticket_name element
-        - A input#buy_ticket_quantity element
-        - A button#submit_buy_ticket element
-          - The above information should be submitted to /buy as a POST request
-    - Have a button#submit_new_tickets
+        - A `form#buy_ticket_form` element for purchasing new forms
+        - A `input#buy_ticket_name`element
+        - A `input#buy_ticket_quantity` element
+        - A `button#submit_buy_ticket` element
+          - The above information should be submitted to `/buy` as a `POST` request
+    - Have a `button#submit_new_tickets` element
       - When clicked the button should display the following
-        - A form#submit_new_tickets element
-        - A input#submit_name element
-        - A input#submit_quantity field
-        - A input#submit_price field
-        - A input#submit_expiration_date element
-        - A button#submit_new_ticket element
-          - The above info should be submitted to /sell as a POST request when the button is clicked
-    - Have a button#udpate_tickets element
+        - A `form#submit_new_tickets` element
+        - A `input#submit_name` element
+        - A `input#submit_quantity` field
+        - A `input#submit_price` field
+        - A `input#submit_expiration_date` element
+        - A `button#submit_new_ticket` element
+          - The above info should be submitted to `/sell` as a `POST` request when the button is clicked
+    - Have a `button#udpate_tickets` element
       - When clicked the button should display
         - A table displaying all the tickets that the user has uploaded
         - Each row should have a button then when clicked should display
-          - A form#update_ticket element
-          - A input#update_name element
-          - A input#update_quantity element
-          - A input#update_price element
-          - A input#update_expiration element
-          - A button#submit_update element
-            - The above information should be sent to /update as a POST request when the button is clicked.
+          - A `form#update_ticket element`
+          - A `input#update_name element`
+          - A `input#update_quantity element`
+          - A `input#update_price element`
+          - A `input#update_expiration element`
+          - A `button#submit_update element`
+            - The above information should be sent to `/update` as a POST request when the button is clicked.
   - Frontend.py:
-    - If not logged in, redirects back to /login R1
-    - Get all tickets via backend.get_available_tickets()
-    - If logged in, return render_template('index.html', user=user, tickets=tickets)
-      - Displays the index.html template with the user information
+    - If not logged in, redirects back to `/login` R1
+    - Get all tickets via `backend.get_available_tickets()`
+    - If logged in, return `render_template('index.html', user=user, tickets=tickets)`
+      - Displays the `index.html` template with the user information
   - Backend.py:
-    - get_available_tickets()
+    - `get_available_tickets()`
       - Shows the forms of the available tickets
         - Information shown includes quantity of each ticket, owner's email
       - Call a method to check if the date for tickets has passed
         - If not, show price.
 - R7 - /logout
-  - Template: login.html
+  - Template: `login.html`
   - Frontend.py:
-    - logout()
-      - Removes 'logged_in' from session
-      - Redirects user to the /login page
+    - `logout()`
+      - Removes `'logged_in'` from session
+      - Redirects user to the `/login page`
 - R8 - /\*
-  - Template: 404.html
-    - Have a h1#404-message
-    - Have a h3#funny
+  - Template: `404.html`
+    - Have a `h1#404-message`
+    - Have a `h3#funny`
       - &quot;Seat's taken&quot;
       - &quot;You just lost musical chairs&quot;
       - &quot;Sorry, we're full&quot;
@@ -109,6 +109,6 @@
       - &quot;Please remain seated during takeoff and landing&quot;
       - &quot;You can't sit with us.&quot;
   - Frontend.py:
-    - page_not_found()
-      - Decorated with @app.errorhandler(404)
-      - Serves the 404.html page, with 404 status code
+    - `page_not_found()`
+      - Decorated with `@app.errorhandler(404)`
+      - Serves the `404.html` page, with `404` status code
