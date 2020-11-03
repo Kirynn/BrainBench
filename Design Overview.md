@@ -1,35 +1,36 @@
-### R1 - `/login`
-  - Template: `login.html`
-    - Have an `input#email` element
-    - Have an `input#password` element
-    - Have an `input#btn-submit` element
-  - Frontend.py
-    - `login_get()`
-      - Returns the `login.html` template
-    - `login_post()`
-      - Redirects the user to the home page with a 303 status code
-      - Or redirects the user back to the `/login` page
-  - Backend.py
-    - `login_user(email, password)`
-      - Uses `get_user(email)` to return a user object
-    - `check_password_hash(user.password, password)`
-      - Uses user object's password and compares it to the password for that user in the database
-### R2 - `/register`
-  - Template: `register.html`
-    - Have an `input#email` element
-    - Have an `input#username` element
-    - Have an `input#password` element
-    - Have an `input#password2` element
-  - Frontend.py
-    - In `/register`, before filling out the form, runs `register_get()`
-      - Return `render_template('register.html', message='')`
-        - Displays the `register.html` template with no message (initially)
-    - In `/register`, after form, runs `register_post()`
-      - Attempt to register the user using `backend.register_user(email, name, password, password2)`
+# R1 - `/login`
+## Template: `login.html`
+* Have an `input#email` element
+* Have an `input#password` element
+* Have an `input#btn-submit` element
+## Frontend.py
+* `login_get()`
+    * Returns the `login.html` template
+* `login_post()`
+    * Redirects the user to the home page with a 303 status code
+    * Or redirects the user back to the `/login` page
+## Backend.py
+* `login_user(email, password)`
+    *Uses `get_user(email)` to return a user object
+* `check_password_hash(user.password, password)`
+    * Uses user object's password and compares it to the password for that user the database
+---
+# R2 - `/register`
+## Template: `register.html`
+* Have an `input#email` element
+* Have an `input#username` element
+* Have an `input#password` element
+* Have an `input#password2` element
+## Frontend.py
+* In `/register`, before filling out the form, runs `register_get()`
+    * Return `render_template('register.html', message='')`
+        * Displays the `register.html` template with no message (initially)
+* In `/register`, after form, runs `register_post()`
+    * Attempt to register the user using `backend.register_user(email, name, password, password2)`
       - If `backend.register_user` returns an error then return `render_template('register.html', message=error_message)`
         - `error_message` will be displayed when the template is re-rendered in the `{message}` field
       - Else, redirects to `/login` page
-  - Backend.py:
+## Backend.py:
     - `register_user(email, name, password, password2)`
       - Searches the database by `email` to see if this email is in use
       - Validates that password and `password2` match and both fulfill password requirements
@@ -99,15 +100,14 @@
   - Template: 404.html
     - Have a h1#404-message
     - Have a h3#funny
-      - &quot;Seat's taken&quot;
-      - &quot;You just lost musical chairs&quot;
-      - &quot;Sorry, we're full&quot;
-      - &quot;You don't have a ticket for this seat&quot;
-      - &quot;Hey, that's my seat!&quot;
-      - &quot;What are you doing step seat&quot;
-      - &quot;No loitering, get outta here&quot;
-      - &quot;Please remain seated during takeoff and landing&quot;
-      - &quot;You can't sit with us.&quot;
+      - "Seat's taken"
+      - "You just lost musical chairs"
+      - "Sorry, we're full"
+      - "You don't have a ticket for this seat"
+      - "Hey, that's my seat!"
+      - "No loitering, get outta here"
+      - "Please remain seated during takeoff and landing"
+      - "You can't sit with us."
   - Frontend.py:
     - page_not_found()
       - Decorated with @app.errorhandler(404)
