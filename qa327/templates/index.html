@@ -76,33 +76,33 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="submit_new_tickets">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="add-ticket-name">Ticket Name</label>
                         </div>
-                        <input type="email" class="form-control" id="add-ticket-name" placeholder="Enter Name">
+                        <input type="text" name="Name" class="form-control" id="add-ticket-name" placeholder="Enter Name">
                     </div>
                     <div class="input-group">
                         <label class="input-group-text for="">Ticket Quantity</label>
-                        <input type="number" min=1 max=100 class="form-control" placeholder="">
+                        <input name="Quantity" type="number" min=1 max=100 class="form-control" placeholder="">
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <label for="">Ticket Price</label>
                             <span class="input-group-text" style="color: black">$</span>
                         </div>
-                        <input type="number" min=10 max=100 class="form-control" placeholder="">
+                        <input name="Price" type="number" min=10 max=100 class="form-control" placeholder="">
                     </div>
                     <div class="input-group">
                         <label class="input-group-text for="">Ticket Expiration Date</label>
-                        <input type="text" class="form-control datetimepicker-input" id="add-datetime" data-toggle="datetimepicker" data-target="#add-datetime"/>
+                        <input name="Date" type="text" class="form-control datetimepicker-input" id="add-datetime" data-toggle="datetimepicker" data-target="#add-datetime"/>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary" id="submit_new_ticket">Save</button>
             </div>
         </div>
     </div>

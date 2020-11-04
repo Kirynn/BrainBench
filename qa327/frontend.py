@@ -40,6 +40,9 @@ def login_get():
 
 @app.route('/login', methods=['POST'])
 def login_post():
+
+    print(request.form.to_dict())
+
     email = request.form.get('email')
     password = request.form.get('password')
     user = bn.login_user(email, password)
