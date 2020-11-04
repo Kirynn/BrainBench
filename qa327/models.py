@@ -21,7 +21,6 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
-    # owneres later
 
 class Ticket(db.Model):
     """
@@ -31,8 +30,10 @@ class Ticket(db.Model):
     name = db.Column(db.String(60), unique=True)
     quantity = db.Column(db.Integer)
     price = db.Column(db.Integer)
-    date = quantity = db.Column(db.String(8)) # 20201104
-    # owneres later
+    date = db.Column(db.String(8)) # 20201104
+    
+    # List of User IDs
+    owner = []
 
 
 # it creates all the SQL tables if they do not exist
