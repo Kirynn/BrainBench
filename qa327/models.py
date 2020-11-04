@@ -22,6 +22,23 @@ class User(db.Model):
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
 
+    # List of Tickets IDs
+    tickets = []
+
+class Ticket(db.Model):
+    """
+    A ticket model which defines the sql table
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(60), unique=True)
+    quantity = db.Column(db.Integer)
+    price = db.Column(db.Integer)
+    date = db.Column(db.String(8)) # 20201104
+    
+    # List of User IDs
+    owner = []
+
+
 # it creates all the SQL tables if they do not exist
 with app.app_context():
     db.create_all()
