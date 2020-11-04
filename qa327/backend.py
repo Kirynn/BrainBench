@@ -91,7 +91,7 @@ def create_ticket(name, quantity, price, date):
     if price > 100:
         return "Price of ticket must be less than equal to 100"
 
-    if len(date) != 8 or type(date) != String:
+    if len(date) != 8 or isinstance(date, str):
         return "Date must be given in the format YYYYMMDD"
     
     new_ticket = Ticket(name=name, quantity=quantity, price=price, date=date)
