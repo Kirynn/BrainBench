@@ -77,19 +77,26 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="form-group">
-                        <label for="add-ticket-name">Ticket Name</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="add-ticket-name">Ticket Name</label>
+                        </div>
                         <input type="email" class="form-control" id="add-ticket-name" placeholder="Enter Name">
                     </div>
-                    <div class="form-group">
-                        <label for="">Ticket Quantity</label>
-                        <input type="text" class="form-control" placeholder=""></div>
-                    <div class="form-group">
-                        <label for="">Ticket Price</label>
-                        <input type="text" class="form-control" placeholder="">
+                    <div class="input-group">
+                        <label class="input-group-text for="">Ticket Quantity</label>
+                        <input type="number" min=1 max=100 class="form-control" placeholder="">
                     </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control datetimepicker-input" id="datetimepicker5" data-toggle="datetimepicker" data-target="#datetimepicker5"/>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label for="">Ticket Price</label>
+                            <span class="input-group-text" style="color: black">$</span>
+                        </div>
+                        <input type="number" min=10 max=100 class="form-control" placeholder="">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-group-text for="">Ticket Expiration Date</label>
+                        <input type="text" class="form-control datetimepicker-input" id="add-datetime" data-toggle="datetimepicker" data-target="#add-datetime"/>
                     </div>
                 </form>
             </div>

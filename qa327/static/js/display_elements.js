@@ -2,7 +2,7 @@ const dtp = "#sumbit-ticket-modal > div > div > div.modal-body > form > div:nth-
 
 $(function() {
 
-    $('#datetimepicker5').datetimepicker({
+    $('#add-datetime').datetimepicker({
         viewMode: 'years',
     });
 });
