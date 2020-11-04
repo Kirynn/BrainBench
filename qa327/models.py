@@ -22,6 +22,9 @@ class User(db.Model):
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
 
+    # List of Tickets IDs
+    tickets = []
+
 class Ticket(db.Model):
     """
     A ticket model which defines the sql table
