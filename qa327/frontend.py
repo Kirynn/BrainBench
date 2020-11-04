@@ -1,6 +1,7 @@
 from flask import render_template, request, session, redirect
 from qa327 import app
 import qa327.backend as bn
+import random
 
 """
 This file defines the front-end part of the service.
@@ -110,3 +111,21 @@ def profile(user):
     # the login checking code all the time for other
     # front-end portals
     return render_template('index.html', user=user)
+
+@app.route('/*')
+@app.errorhandler(404)
+def page_not_found(message):
+    #List of funny 404 messages
+    messages = ["Seat's taken."
+        , "You just lost musical chairs."
+        , "Sorry, we're full"
+        , "You don't have a ticket for this seat."
+        , "Hey, that's my seat!"
+        , "No loitering, get outta here."
+        , "Please remain seated during takeoff and landing."
+        , "You can't sit with us."]
+
+    #Pick one of the messages at random
+
+
+    return render_template("404.html", message=messages[random.randrange(len(messages))])
