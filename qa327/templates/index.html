@@ -7,5 +7,24 @@
 {% block content %}
 <h2 id="welcome-header">Welcome {{ user.name }} !</h2>
 
+<section id="main">
+    <table class="available-to-buy">
+        <tr>
+            <th>Ticket Name</th>
+            <th>Available</th>
+            <th>purchase</th>
+        </tr>
+        {% for ticket in tickets %}
+            <tr class="ticket">
+                <td class="ticket-name"></td>
+                <td class="ticket-quantity-available"></td>
+                <td><button class="purchase-ticket"></button></td>
+            </tr>
+        {% endfor %}
+    </table>
+</section>
+
 <a href='/logout'>logout</a>
+
+<script src=" {{ url_for('static', filename='js/display_elements.js') }}"></script>
 {% endblock %}

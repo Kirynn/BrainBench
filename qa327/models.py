@@ -22,7 +22,6 @@ class User(db.Model):
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
 
-
 # it creates all the SQL tables if they do not exist
 with app.app_context():
     db.create_all()
