@@ -22,8 +22,8 @@ class User(db.Model):
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
 
-    # List of Tickets IDs
-    tickets = []
+    # List of Tickets IDs {ticket.id: quantity}
+    tickets = {}
 
 class Ticket(db.Model):
     """
