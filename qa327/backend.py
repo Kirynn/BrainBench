@@ -1,6 +1,8 @@
 from qa327.models import db, User
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from datetime import date
+
 """
 This file defines all backend logic that interacts with database and other services
 """
@@ -60,3 +62,12 @@ def register_user(email, name, password, password2):
     db.session.add(new_user)
     db.session.commit()
     return None
+
+#def create_ticket():
+
+#def get_available_tickets(user):
+
+def check_if_expired(ticket):
+    currDay = date.today().strftime("%Y%m%d")
+
+    return ticket.date <= currDay
