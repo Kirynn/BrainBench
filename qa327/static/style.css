@@ -21,3 +21,8 @@ th, td {
 
     color: white;
 }
+
+.bootstrap-datetimepicker-widget  {
+    opacity: 1 !important;
+    visibility: visible !important  ;
+}

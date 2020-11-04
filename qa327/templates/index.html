@@ -21,13 +21,13 @@
         </thead>
         <tbody>
             {% if not ticket == None %}
-            {% for ticket in tickets %}
-            <tr class="ticket">
-                <td class="ticket-name" scope="row"></td>
-                <td class="ticket-quantity-available"></td>
-                <td><button class="purchase-ticket"></button></td>
-            </tr>
-            {% endfor %}
+                {% for ticket in tickets %}
+                    <tr class="ticket">
+                        <td class="ticket-name" scope="row"></td>
+                        <td class="ticket-quantity-available"></td>
+                        <td><button class="purchase-ticket"></button></td>
+                    </tr>
+                {% endfor %}
             {% else %}
             <tr>
                 <td colspan="100%" class="text-center p-4">:( Looks like there are none available
@@ -86,10 +86,11 @@
                         <input type="text" class="form-control" placeholder=""></div>
                     <div class="form-group">
                         <label for="">Ticket Price</label>
-                        <input type="text" class="form-control" placeholder=""></div>
+                        <input type="text" class="form-control" placeholder="">
+                    </div>
                     <div class="form-group">
-                        <label for="">Expiration Date</label>
-                        <input type="text" class="form-control" placeholder=""></div>
+                        <input type="text" class="form-control datetimepicker-input" id="datetimepicker5" data-toggle="datetimepicker" data-target="#datetimepicker5"/>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
