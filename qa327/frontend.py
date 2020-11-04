@@ -46,7 +46,7 @@ def login_post():
         """
         Session is an object that contains sharing information 
         between browser and the end server. Typically it is encrypted 
-        and stored in the browser cookies. They will be past 
+        and stored in the browser cookies. They will be passed
         along between every request the browser made to this services.
 
         Here we store the user object into the session, so we can tell
