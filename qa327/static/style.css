@@ -2,3 +2,22 @@
 
     width: 100%;
 }
+
+th, td { 
+    color: #ffffff;
+}
+
+.sub-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.sub-header > h2 {
+
+    flex-grow: 2;
+}
+
+.sub-header > button > a {
+
+    color: white;
+}
