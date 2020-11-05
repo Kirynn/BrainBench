@@ -33,6 +33,7 @@ $(function () {
     $('#update-datetime').datetimepicker(defaultOptions);
 
     // USING /login as api endpoint for testing, make sure to change this!!!
-    $('#submit_new_ticket').click(function () {SubmitForm('submit_new_tickets', '/login')});
-    $("#submit_update").click(function() {SubmitForm('update_ticket', '/login')});
+
+    $('#submit-ticket-button').click(function () {SubmitForm('submit-ticket-form', '/login')});
+    $("#update-ticket-button").click(function() {SubmitForm('update-ticket-form', '/login')});
 });
