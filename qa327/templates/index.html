@@ -10,7 +10,7 @@
     <button class="btn btn-primary"><a href='/logout'>Logout</a></button>
 </header>
 
-<section id="main">
+<section id="main" class="my-4">
     <table class="available-to-buy table">
         <thead class="thread-light">
             <tr>
@@ -30,18 +30,17 @@
                 {% endfor %}
             {% else %}
             <tr>
-                <td colspan="100%" class="text-center p-4">:( Looks like there are none available
-                </td>
-
+                <td colspan="100%" class="text-center p-4">:( Looks like there are none available</td>
             </tr>
             {% endif %}
         </tbody>
     </table>
 
     <section class="ticket_actions container d-flex justify-content-center" role="group">
-        <button type="button" class="btn btn-primary" data-target="#update-modal" data-toggle="modal"
+        <button type="button" class="btn btn-primary mx-3" data-target="#update-modal" data-toggle="modal"
             id="submit_new_tickets">Update Tickets</button>
-        <button type="button" class="btn btn-primary" data-target="#sumbit-ticket-modal" data-toggle="modal"
+            <!-- {% if ticket == None %} disabled {% endif %} put that back into update tickets -->
+        <button type="button" class="btn btn-primary mx-3" data-target="#sumbit-ticket-modal" data-toggle="modal"
             id="update_tickets">Add Tickets</button>
     </section>
 </section>
@@ -56,7 +55,24 @@
                 </button>
             </div>
             <div class="modal-body">
-
+                <form method="POST" id="update_ticket">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend"><label for="" class="input-group-text">Name</label></div>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend"><label for="" class="input-group-text">Quantity</label></div>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend"><label for="" class="input-group-text">Price</label></div>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="Date">Expiration Date</label>
+                        <input name="Date" type="text" class="form-control datetimepicker-input" id="update-datetime" data-toggle="datetimepicker" data-target="#update-datetime"/>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -76,26 +92,25 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="submit_new_tickets">
+                <form method="POST" id="submit_new_tickets">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" for="add-ticket-name">Ticket Name</label>
+                            <label class="input-group-text" for="Name">Name</label>
                         </div>
                         <input type="text" name="Name" class="form-control" id="add-ticket-name" placeholder="Enter Name">
                     </div>
-                    <div class="input-group">
-                        <label class="input-group-text for="">Ticket Quantity</label>
-                        <input name="Quantity" type="number" min=1 max=100 class="form-control" placeholder="">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="Quantity">Quantity</label>
+                        <input name="Quantity" type="number" min=1 max=100 class="form-control" value="1">
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label for="">Ticket Price</label>
-                            <span class="input-group-text" style="color: black">$</span>
+                            <label class="input-group-text" for="Price">Price ($)</label>
                         </div>
-                        <input name="Price" type="number" min=10 max=100 class="form-control" placeholder="">
+                        <input name="Price" type="number" min=10 max=100 class="form-control" value="10.00">
                     </div>
-                    <div class="input-group">
-                        <label class="input-group-text for="">Ticket Expiration Date</label>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="Date">Expiration Date</label>
                         <input name="Date" type="text" class="form-control datetimepicker-input" id="add-datetime" data-toggle="datetimepicker" data-target="#add-datetime"/>
                     </div>
                 </form>
