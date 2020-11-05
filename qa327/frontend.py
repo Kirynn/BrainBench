@@ -116,6 +116,7 @@ def profile(user):
     # the login checking code all the time for other
     # front-end portals
 
-    tickets = [Ticket(name="test", quantity=100, price=20, date="10/10/2020", creator="10")]
+    # TEMP as we have no way to add a ticket to the database ATM (part of R5).
+    tickets = [Ticket(name="test", quantity=100, price=20, date="10/10/2020", creator="2")]
 
-    return render_template('index.html', user=user, tickets=None)
+    return render_template('index.html', user=user, tickets=tickets)

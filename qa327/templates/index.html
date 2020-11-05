@@ -33,7 +33,7 @@
                     <tr class="ticket">
                         <td class="ticket-name" scope="row">{{ticket.name}}</td>
                         <td class="ticket-quantity-available">{{ticket.quantity}}</td>
-                        <td><button class="purchase-ticket">Buy Ticket</button></td>
+                        <td><button class="btn btn-primary">Buy Ticket</button></td>
                     </tr>
                 {% endfor %}
             {% else %}
@@ -47,7 +47,7 @@
     <div class="container mb-2">
         <div class="row">
             <div class="col-8">
-                <h3>Update Ticket</h3>
+                <h3>Update Tickets</h3>
             </div>
             <div class="col">
                 <button type="button" class="btn btn-primary mx-3" data-target="#submit-modal" data-toggle="modal">Add New Ticket</button>
@@ -61,31 +61,30 @@
                 <td>Quantity</td>
                 <td>Price</td>
                 <td>Date</td>
-                <td>Buy Ticket</td>
+                <td>Update</td>
             </tr>
         </thead>
         <tbody>
-            {% if not tickets == None %}
-            {% for ticket in tickets|select("equalto", user.id) %}
+            {% set user_tickets = tickets|default([])|selectattr("creator", "eq", user.id)|list %}
+            {% if user_tickets|length > 0 %}
+            {% for ticket in user_tickets %}
                 <tr>
                     <td>{{ticket.name}}</td>
                     <td>{{ticket.quantity}}</td>
                     <td>{{ticket.price}}</td>
                     <td>{{ticket.date}}</td>
-                    <td><button class="btn btn-primary" onclick='loadUpdateModal({{ticket.name}}, {{ticket.quantity}}, {{ticket.price}}, {{ticket.date}})'></button></td>
+                    <td><button class="btn btn-primary" onclick='LoadUpdateModal("{{ticket.name}}", {{ticket.quantity}}, {{ticket.price}}, "{{ticket.date}}")'>Update</button></td>
                 </tr>
             {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="100%" class="text-center p-4">
+                    <div>Looks like you don't have any tickets. Why not <a href class="clickable" data-target="#submit-modal" data-toggle="modal">add one?</a></div>
+                    </td>
+            </tr>
             {% endif %}
         </tbody>
     </table>
-
-    <section class="ticket_actions container d-flex justify-content-center" role="group">
-        <button type="button" class="btn btn-primary mx-3" data-target="#update-modal" data-toggle="modal"
-            id="submit_new_tickets">Update Tickets</button>
-            <!-- {% if ticket == None %} disabled {% endif %} put that back into update tickets -->
-        <button type="button" class="btn btn-primary mx-3" data-target="#submit-modal" data-toggle="modal"
-            id="update_tickets">Add Tickets</button>
-    </section>
 </section>
 
 {{ modal("update", "Update Ticket") }}
