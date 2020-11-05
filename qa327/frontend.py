@@ -1,6 +1,7 @@
 from flask import render_template, request, session, redirect
 from qa327 import app
 import qa327.backend as bn
+from qa327.models import Ticket
 
 DEBUG = True
 
@@ -114,4 +115,7 @@ def profile(user):
     # by using @authenticate, we don't need to re-write
     # the login checking code all the time for other
     # front-end portals
-    return render_template('index.html', user=user, ticket=None)
+
+    tickets = [Ticket(name="test", quantity=100, price=20, date="10/10/2020", creator="10")]
+
+    return render_template('index.html', user=user, tickets=None)

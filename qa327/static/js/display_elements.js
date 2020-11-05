@@ -34,6 +34,6 @@ $(function () {
 
     // USING /login as api endpoint for testing, make sure to change this!!!
 
-    $('#submit-ticket-button').click(function () {SubmitForm('submit-ticket-form', '/login')});
-    $("#update-ticket-button").click(function() {SubmitForm('update-ticket-form', '/login')});
+    $('#submit-ticket-button').click(function () {SubmitForm('submit-ticket-form', '/buy')});
+    $("#update-ticket-button").click(function() {SubmitForm('update-ticket-form', '/update')});
 });
