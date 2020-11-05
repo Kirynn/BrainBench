@@ -36,3 +36,9 @@
 
     text-decoration: underline;
 }
+
+input:focus:read-only {
+
+    border-color: #ced4da !important;
+    box-shadow: none !important;
+}

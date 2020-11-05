@@ -1,6 +1,7 @@
+const buyModal = "#buy-modal"
 const submitModal = "#submit-modal"
 
-const defaultOptions = {
+const defaultDateTimePickerOptions = {
     viewMode: 'days',
     collapse: true
 }
@@ -11,10 +12,25 @@ function SubmitForm(formid, location) {
     let el = $(`form#${formid}`);
     let data = el.serialize();
 
-    if (el.attr('method') == 'POST')
-        $.post(location, data);
-    else if(el.attr('method') == 'PUT')
-        $.put(location, data)
+    if (el.attr('method') == 'POST') $.post(location, data);
+    else if(el.attr('method') == 'PUT') $.put(location, data);
+}
+
+function LoadBuyModal(name, quantity, price, date) {
+
+    $(buyModal).modal('show');
+    $(buyModal).find("#cost-output").html(`Cost: \$${$(buyModal).find("input[name='Price']").val() * $(buyModal).find("input[name='Quantity']").val()}`)
+
+    $(buyModal).find("input[name='Quantity']").attr("max", quantity);
+    $(buyModal).find("#buy-max").html("Max available " + quantity + ".");
+
+    $(buyModal).find("input[name='Name']").val(name);
+    $(buyModal).find("input[name='Price']").val(price);
+    $(buyModal).find("input[name='Date']").val(date);
+
+    $(buyModal).find("input[name='Quantity']").change(function() {
+$(buyModal).find("#cost-output").html(`Cost: \$${$(buyModal).find("input[name='Price']").val() * $(buyModal).find("input[name='Quantity']").val()}`)        
+    });
 }
 
 function LoadUpdateModal(name, quantity, price, date) {
@@ -42,11 +58,13 @@ $(function () {
         }
     });
 
-    $('#add-datetime').datetimepicker(defaultOptions);
-    $('#update-datetime').datetimepicker(defaultOptions);
+    $('#add-datetime').datetimepicker(defaultDateTimePickerOptions);
+    $('#update-datetime').datetimepicker(defaultDateTimePickerOptions);
 
     // User /login as api endpoint for testing, make sure to change this!!! (you can see it in the console)
 
-    $('#submit-ticket-button').click(function () {SubmitForm('submit-ticket-form', '/buy')});
+    $('#submit-ticket-button').click(function () {SubmitForm('submit-ticket-form', '/add')});
     $("#update-ticket-button").click(function() {SubmitForm('update-ticket-form', '/update')});
+    $("#buy-ticket-button").click(function() {SubmitForm('buy-ticket-form', '/buy')});
 });
+
