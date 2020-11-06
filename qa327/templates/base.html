@@ -20,7 +20,7 @@
     <!-- CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <link href="{{ url_for('static', filename='style.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/style.css') }}" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-PMjWzHVtwxdq7m7GIxBot5vdxUY+5aKP9wpKtvnNBZrVv1srI8tU6xvFMzG8crLNcMj/8Xl/WWmo/oAP/40p1g==" crossorigin="anonymous" />
 
     <!--   Core JS Files   -->
@@ -51,12 +51,12 @@
         </div>
     </noscript>
 
-    <nav class="navbar navbar-expand-lg fixed-top ">
+    <nav class="navbar navbar-expand-lg fixed-top global-header">
         <div class="container">
             <div class="navbar-translate">
                 <a class="navbar-brand" href="{{logo_url or base_url}}" rel="tooltip"
-                    title="Designed and Coded by Creative Tim" data-placement="bottom">
-                    <span>
+                    title="Thanks Bootstrap ♥" data-placement="bottom">
+                    <span class="text-dark">
                         <img src="https://l1nna.com/images/favicon.ico" style="height: 30px;vertical-align: middle;">
                         QA327
                     </span>

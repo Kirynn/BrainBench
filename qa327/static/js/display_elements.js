@@ -1,12 +1,6 @@
 const buyModal = "#buy-modal"
 const submitModal = "#submit-modal"
 
-const defaultDateTimePickerOptions = {
-    viewMode: 'days',
-    collapse: true,
-    format: 'L'
-}
-
 function SubmitForm(formid, location) {
     
 
@@ -48,6 +42,9 @@ function LoadUpdateModal(name, quantity, price, date) {
 $(function () {
 
     $.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
+        viewMode: 'days',
+        collapse: true,
+        format: 'L',
         icons: {
             time: 'far fa-clock',
             date: 'far fa-calendar',
@@ -61,10 +58,10 @@ $(function () {
         }
     });
 
-    $('#add-datetime').datetimepicker(defaultDateTimePickerOptions);
-    $('#update-datetime').datetimepicker(defaultDateTimePickerOptions);
+    $('#add-datetime').datetimepicker();
+    $('#update-datetime').datetimepicker();
 
-    // User /login as api endpoint for testing, make sure to change this!!! (you can see it in the console)
+    // Use /viewPOST as api endpoint for testing, make sure to change this!!! (you can see it in the console)
 
     $('#submit-ticket-button').click(function () {SubmitForm('submit', '/viewPOST')});
     $("#update-ticket-button").click(function() {SubmitForm('update', '/viewPOST')});

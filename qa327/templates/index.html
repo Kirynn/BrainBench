@@ -7,12 +7,12 @@
 
 {% block content %}
 <header class="sub-header">
-    <h2 id="welcome-header">Welcome {{ user.name }} {{ user.id }}!</h2>
-    <button class="btn btn-primary"><a href='/logout'>Logout</a></button>
+    <h2 id="welcome-header">Welcome {{ user.name }}!</h2>
+    <button class="btn btn-primary"><a href='/logout' class="text-light">Logout</a></button>
 </header>
 
 <section id="main" class="my-4">
-    <div class="container mb-2">
+    <div class="container mb-3">
         <div class="row">
             <div class="col">
                 <h3>Purchase Tickets</h3>
@@ -35,7 +35,7 @@
                 <td class="ticket-name">{{ticket.name}}</td>
                 <td class="ticket-quantity-available">{{ticket.quantity}}</td>
                 <td class="ticket-quantity-available">{{ticket.price}}</td>
-                <td><button class="btn btn-primary" onclick="LoadBuyModal('{{ticket.name}}', {{ticket.quantity}}, {{ticket.price}}, '{{ticket.date}}' )">Buy Ticket</button></td>
+                <td><button class="btn btn-link p-0" onclick="LoadBuyModal('{{ticket.name}}', {{ticket.quantity}}, {{ticket.price}}, '{{ticket.date}}' )">Buy Ticket</button></td>
             </tr>
             {% endfor %}
             {% else %}
@@ -46,7 +46,7 @@
         </tbody>
     </table>
 
-    <div class="container mb-2">
+    <div class="container mb-3">
         <div class="row">
             <div class="col-8">
                 <h3>Update Tickets</h3>
@@ -60,11 +60,11 @@
     <table class="table mb-3">
         <thead>
             <tr>
-                <td>Name</td>
-                <td>Quantity</td>
-                <td>Price</td>
-                <td>Date</td>
-                <td>Update</td>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Date</th>
+                <th>Update</th>
             </tr>
         </thead>
         <tbody>
@@ -76,8 +76,8 @@
                 <td>{{ticket.quantity}}</td>
                 <td>{{ticket.price}}</td>
                 <td>{{ticket.date}}</td>
-                <td><button class="btn btn-primary"
-                        onclick='LoadUpdateModal("{{ticket.name}}", {{ticket.quantity}}, {{ticket.price}}, "{{ticket.date}}")'>Update</button>
+                <td><button class="btn btn-link p-0"
+                        onclick='LoadUpdateModal("{{ticket.name}}", {{ticket.quantity}}, {{ticket.price}}, "{{ticket.date}}")'>Update Ticket</button>
                 </td>
             </tr>
             {% endfor %}
