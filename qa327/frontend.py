@@ -1,6 +1,9 @@
 from flask import render_template, request, session, redirect
 from qa327 import app
 import qa327.backend as bn
+from qa327.models import Ticket
+
+DEBUG = True
 
 """
 This file defines the front-end part of the service.
@@ -38,6 +41,7 @@ def login_get():
 
 @app.route('/login', methods=['POST'])
 def login_post():
+
     email = request.form.get('email')
     password = request.form.get('password')
     user = bn.login_user(email, password)
@@ -109,4 +113,18 @@ def profile(user):
     # by using @authenticate, we don't need to re-write
     # the login checking code all the time for other
     # front-end portals
-    return render_template('index.html', user=user)
+
+    # TEMP as we have no way to add a ticket to the database ATM (part of R5).
+    tickets = [
+        Ticket(name="test", quantity=10, price=20, date="10/10/2020", creator=2),
+        Ticket(name="test 2", quantity=18, price=18, date="10/10/2020", creator=1),
+        Ticket(name="Vivan Rules", quantity=1, price=60, date="10/10/2020", creator=2)
+    ]
+
+    return render_template('index.html', user=user, tickets=tickets)
+
+@app.route('/viewPOST', methods=['POST'])
+def view(): 
+
+    print(request.form.to_dict())
+    return ('', 204)
