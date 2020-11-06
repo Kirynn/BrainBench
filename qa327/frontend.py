@@ -115,7 +115,7 @@ def profile(user):
     # front-end portals
 
     # TEMP as we have no way to add a ticket to the database ATM (part of R5).
-    tickets = [Ticket(name="test", quantity=10, price=20, date="10/10/2020", creator="2")]
+    tickets = [Ticket(name="test", quantity=10, price=20, date="10/10/2020", creator=2)]
 
     return render_template('index.html', user=user, tickets=tickets)
 

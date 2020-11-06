@@ -10,11 +10,13 @@ const defaultDateTimePickerOptions = {
 function SubmitForm(formid, location) {
     
 
-    let el = $(`form#${formid}`);
+    let el = $(`form#${formid}-ticket-form`);
     let data = el.serialize();
 
     if (el.attr('method') == 'POST') $.post(location, data);
     else if(el.attr('method') == 'PUT') $.put(location, data);
+
+    $(`#${formid}-modal`).modal('hide');
 }
 
 function LoadBuyModal(name, quantity, price, date) {
@@ -30,7 +32,7 @@ function LoadBuyModal(name, quantity, price, date) {
     $(buyModal).find("input[name='Date']").val(date);
 
     $(buyModal).find("input[name='Quantity']").change(function() {
-$(buyModal).find("#cost-output").html(`Cost: \$${$(buyModal).find("input[name='Price']").val() * $(buyModal).find("input[name='Quantity']").val()}`)        
+        $(buyModal).find("#cost-output").html(`Cost: \$${$(buyModal).find("input[name='Price']").val() * $(buyModal).find("input[name='Quantity']").val()}`)        
     });
 }
 
@@ -64,8 +66,8 @@ $(function () {
 
     // User /login as api endpoint for testing, make sure to change this!!! (you can see it in the console)
 
-    $('#submit-ticket-button').click(function () {SubmitForm('submit-ticket-form', '/viewPOST')});
-    $("#update-ticket-button").click(function() {SubmitForm('update-ticket-form', '/viewPOST')});
-    $("#buy-ticket-button").click(function() {SubmitForm('buy-ticket-form', '/viewPOST')});
+    $('#submit-ticket-button').click(function () {SubmitForm('submit', '/viewPOST')});
+    $("#update-ticket-button").click(function() {SubmitForm('update', '/viewPOST')});
+    $("#buy-ticket-button").click(function() {SubmitForm('buy', '/viewPOST')});
 });
 
