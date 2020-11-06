@@ -42,8 +42,6 @@ def login_get():
 @app.route('/login', methods=['POST'])
 def login_post():
 
-    print(request.form.to_dict())
-
     email = request.form.get('email')
     password = request.form.get('password')
     user = bn.login_user(email, password)
@@ -120,3 +118,9 @@ def profile(user):
     tickets = [Ticket(name="test", quantity=10, price=20, date="10/10/2020", creator="2")]
 
     return render_template('index.html', user=user, tickets=tickets)
+
+@app.route('/viewPOST', methods=['POST'])
+def view(): 
+
+    print(request.form.to_dict())
+    return ('', 204)

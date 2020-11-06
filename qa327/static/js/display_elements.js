@@ -3,7 +3,8 @@ const submitModal = "#submit-modal"
 
 const defaultDateTimePickerOptions = {
     viewMode: 'days',
-    collapse: true
+    collapse: true,
+    format: 'L'
 }
 
 function SubmitForm(formid, location) {
@@ -63,8 +64,8 @@ $(function () {
 
     // User /login as api endpoint for testing, make sure to change this!!! (you can see it in the console)
 
-    $('#submit-ticket-button').click(function () {SubmitForm('submit-ticket-form', '/add')});
-    $("#update-ticket-button").click(function() {SubmitForm('update-ticket-form', '/update')});
-    $("#buy-ticket-button").click(function() {SubmitForm('buy-ticket-form', '/buy')});
+    $('#submit-ticket-button').click(function () {SubmitForm('submit-ticket-form', '/viewPOST')});
+    $("#update-ticket-button").click(function() {SubmitForm('update-ticket-form', '/viewPOST')});
+    $("#buy-ticket-button").click(function() {SubmitForm('buy-ticket-form', '/viewPOST')});
 });
 
