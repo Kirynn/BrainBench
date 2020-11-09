@@ -1,9 +1,8 @@
 from flask import render_template, request, session, redirect
 from qa327 import app
 import qa327.backend as bn
+import random
 from qa327.models import Ticket
-
-DEBUG = True
 
 """
 This file defines the front-end part of the service.
@@ -113,7 +112,6 @@ def profile(user):
     # by using @authenticate, we don't need to re-write
     # the login checking code all the time for other
     # front-end portals
-
     # TEMP as we have no way to add a ticket to the database ATM (part of R5).
     tickets = [
         Ticket(name="test", quantity=10, price=20, date="10/10/2020", creator=2),
@@ -123,6 +121,25 @@ def profile(user):
 
     return render_template('index.html', user=user, tickets=tickets)
 
+
+@app.route('/*')
+@app.errorhandler(404)
+def page_not_found(message):
+    #List of funny 404 messages
+    messages = ["Seat's taken."
+        , "You just lost musical chairs."
+        , "Sorry, we're full"
+        , "You don't have a ticket for this seat."
+        , "Hey, that's my seat!"
+        , "No loitering, get outta here."
+        , "Please remain seated during takeoff and landing."
+        , "You can't sit with us."]
+
+    #Pick one of the messages at random
+
+
+    return render_template("404.html", message=messages[random.randrange(len(messages))])
+  
 @app.route('/viewPOST', methods=['POST'])
 def view(): 
 
