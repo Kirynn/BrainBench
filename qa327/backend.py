@@ -8,7 +8,6 @@ import re
 This file defines all backend logic that interacts with database and other services
 """
 
-
 def validate_email(email):
 
     # RFC 5322 specification: https://emailregex.com/
@@ -49,6 +48,10 @@ def login_user(email, password):
     :return: the user if login succeeds
     """
     # if this returns a user, then the name already exists in database
+
+    email = email.strip()
+    password = password.strip()
+
     user = get_user(email)
     if not user or not check_password_hash(user.password, password):
         return None
@@ -88,7 +91,7 @@ def register_user(email, name, password, password2):
 
     if not validate_email(email):
         return 'Invalid Email.'
-        
+
     hashed_pw = generate_password_hash(password, method='sha256')
     # store the encrypted password rather than the plain password
     new_user = User(email=email, name=name, password=hashed_pw, balance=5000)
