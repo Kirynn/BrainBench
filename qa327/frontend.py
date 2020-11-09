@@ -1,4 +1,4 @@
-from flask import render_template, request, session, redirect
+from flask import render_template, request, session, redirect, flash
 from qa327 import app
 import qa327.backend as bn
 import random
@@ -28,14 +28,23 @@ def register_post():
     # if there is any error messages when registering new user
     # at the backend, go back to the register page.
     if error_message:
-        return render_template('register.html', message=error_message)
+        session['error_message'] = error_message
+        return redirect('/login', 400)
+
     else:
-        return redirect('/login')
+        return redirect('/login', 200)
 
 
 @app.route('/login', methods=['GET'])
 def login_get():
-    return render_template('login.html', message='Please login')
+
+    if session['error_message']:
+        message = session['error_message']
+        session.pop('error_message', None)
+    else:
+        message = "Please Login"
+
+    return render_template('login.html', message=message)
 
 
 @app.route('/login', methods=['POST'])
