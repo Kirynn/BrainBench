@@ -12,23 +12,22 @@ def validate_email(email):
 
     # RFC 5322 specification: https://emailregex.com/
     regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
-    return re.search(email, regex)
+    return re.search(regex, email)
 
 def validate_name(name):
 
-    regex = r"(^[a-z\d\-_\s]$)"
-
     if 2 > len(name) > 20: return "Username must be between 2 and 20 characters."
-    if not re.search(name, regex): return "Name must be alphanumeric only."
+    if not name.isalnum(): return "Name must be alphanumeric only."
 
     return None
 
 def validate_password(password):
 
     regex = r"(^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$)"
-
     if len(password) < 6: return "Password length must be greator then 6."
-    if not re.search(password, regex): return "You password must meet the required complexity: minimum length 6, at least one upper case, at least one lower case, and at least one special character (@$!%*?&)"
+    if re.search(regex, password) == None: return "You password must meet the required complexity: minimum length 6, at least one upper case, at least one lower case, and at least one special character (@$!%*?&)"
+
+    return None
 
 def get_user(email):
     """
@@ -68,7 +67,7 @@ def register_user(email, name, password, password2):
     :return: an error message if there is any, or None if register succeeds
     """
     email = email.strip()
-    name = name.strip()
+    name = name.strip().lower()
     password = password.strip()
     password2 = password2.strip()
 

@@ -29,17 +29,14 @@ def register_post():
     # at the backend, go back to the register page.
     if error_message:
         session['error_message'] = error_message
-        return redirect('/login', 400)
-
-    else:
-        return redirect('/login', 200)
-
+    
+    return redirect('/login')
 
 @app.route('/login', methods=['GET'])
 def login_get():
 
-    if session['error_message']:
-        message = session['error_message']
+    if not session.get("error_message") is None:
+        message = session.get('error_message')
         session.pop('error_message', None)
     else:
         message = "Please Login"
