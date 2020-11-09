@@ -59,21 +59,21 @@
 * R3.5 - This page lists all available tickets. Information including the quantity of each ticket, the owner's email, and the price, for tickets that are not expired.
     * Integration
 * R3.6 - This page contains a form that a user can submit new tickets for sell. Fields: name, quantity, price, expiration date
-Integration
-R3.7 - This page contains a form that a user can buy new tickets. Fields: name, quantity
-Frontend
-R3.8 - This page contains a form that a user can update existing tickets. Fields: name, quantity, price, expiration date
-Integration
-R3.9.1 - [post] ticket submitted is received by /sell - positive
-Backend
-R3.10.1 - [post] ticket submitted is received by /buy - positive
-Backend
-R3.10.2 - [post] ticket submitted is received by /buy - negative
-Backend
-R3.11.1 - [post] ticket submitted is received by /update - positive
-Backend
-R3.11.1 - [post] ticket submitted is received by /update - negative
-Backend
+    * Integration
+* R3.7 - This page contains a form that a user can buy new tickets. Fields: name, quantity
+    * Frontend
+* R3.8 - This page contains a form that a user can update existing tickets. Fields: name, quantity, price, expiration date
+    * Integration
+* R3.9.1 - [post] ticket submitted is received by /sell - positive
+    * Backend
+* R3.10.1 - [post] ticket submitted is received by /buy - positive
+    * Backend
+* R3.10.2 - [post] ticket submitted is received by /buy - negative
+    * Backend
+* R3.11.1 - [post] ticket submitted is received by /update - positive
+    * Backend
+* R3.11.1 - [post] ticket submitted is received by /update - negative
+    * Backend
 
 ### R7
 #### Andrew is responsible for the test cases in R7
