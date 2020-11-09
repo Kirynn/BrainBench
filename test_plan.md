@@ -103,3 +103,24 @@ Backend
 * R8.1.7 For /sell, the system should not return a 404 err
     * Frontend
 
+
+## The order of the test cases (which level first which level second)
+The prirotiy order for test cases will be:
+1) Front End
+2) Backend
+3) Integration
+
+## Techniques and tools used for testing
+* Techniques: automated test with qa327_test
+* Tools for testing: Github Actions CLI, pytest
+
+## Test environments (all the local environment and the cloud environment) for the testing
+* Local environment:Developer Machines
+* Cloud environment: Github actions, Github servers
+
+## Responsibility (who is responsible for which test case, and in case of failure, who should you contact)
+* In case of failure, contact whoever who “commit”ed the crime
+
+## Budget Management  (how to monitor, keep track and minimize unnecessary cost)
+* Repo owner (Kirynn) can check the remaining minutes. Moving forward, will have repo owner check the CI after every big update to a branch (makes sure we’re not overdoing it)
+* Minimize unnecessary cost: Run tests locally
