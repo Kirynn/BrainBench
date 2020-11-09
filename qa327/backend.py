@@ -2,11 +2,34 @@ from qa327.models import db, User, Ticket
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from datetime import date
+import re
 
 """
 This file defines all backend logic that interacts with database and other services
 """
 
+
+def validate_email(email):
+
+    # RFC 5322 specification: https://emailregex.com/
+    regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
+    return re.search(email, regex)
+
+def validate_name(name):
+
+    regex = r"(^[a-z\d\-_\s]$)"
+
+    if 2 > len(name) > 20: return "Username must be between 2 and 20 characters."
+    if not re.search(name, regex): return "Name must be alphanumeric only."
+
+    return None
+
+def validate_password(password):
+
+    regex = r"(^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$)"
+
+    if len(password) < 6: return "Password length must be greator then 6."
+    if not re.search(password, regex): return "You password must meet the required complexity: minimum length 6, at least one upper case, at least one lower case, and at least one special character (@$!%*?&)"
 
 def get_user(email):
     """
@@ -41,23 +64,34 @@ def register_user(email, name, password, password2):
     :param password2: another password input to make sure the input is correct
     :return: an error message if there is any, or None if register succeeds
     """
+    email = email.strip()
+    name = name.strip()
+    password = password.strip()
+    password2 = password2.strip()
+
     user = User.query.filter_by(email=email).first()
 
     if user:
-        return "User existed"
+        return "This email is already in use."
+
+    name_validation_error = validate_name(name)
+    if not name_validation_error == None:
+        return name_validation_error
+
+    password_validation_error = validate_password(password)
+
+    if not password_validation_error == None:
+        return password_validation_error
 
     if password != password2:
-        return "The passwords do not match"
+        return "The passwords do not match."
 
-    if len(email) < 1:
-        return "Email format error"
-
-    if len(password) < 1:
-        return "Password not strong enough"
-
+    if not validate_email(email):
+        return 'Invalid Email.'
+        
     hashed_pw = generate_password_hash(password, method='sha256')
     # store the encrypted password rather than the plain password
-    new_user = User(email=email, name=name, password=hashed_pw)
+    new_user = User(email=email, name=name, password=hashed_pw, balance=5000)
 
     db.session.add(new_user)
     db.session.commit()
