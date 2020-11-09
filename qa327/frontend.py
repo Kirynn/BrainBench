@@ -64,7 +64,7 @@ def login_post():
 def logout():
     if 'logged_in' in session:
         session.pop('logged_in', None)
-    return redirect('/redirect')
+    return redirect('/login')
 
 
 def authenticate(inner_function):
