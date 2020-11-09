@@ -14,9 +14,14 @@ templates = os.path.join(
     package_dir, "templates"
 )
 
-app = Flask('this is a simple web application', template_folder=templates)
+static = os.path.join(
+    package_dir, "static"
+)
+
+app = Flask('this is a simple web application', template_folder=templates, static_folder=static)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '69cae04b04756f65eabcd2c5a11c8c24'
+
 # if the user supplies a database file name, we use
 # that instead, and it should an absolute path
 # for windows user, C:\ is the root directory, so it
