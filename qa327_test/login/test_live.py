@@ -36,4 +36,4 @@ class SimpleLoginTest(BaseCase):
         self.login()
         self.open(base_url)
         self.assert_element("#welcome-header")
-        self.assert_text("Welcome PYTEST", "#welcome-header")
+        self.assert_text("Welcome pytest", "#welcome-header")
