@@ -1,4 +1,4 @@
-name: Python application
+name: BrainBench-Build
 
 on: [push]
 
