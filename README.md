@@ -1,6 +1,6 @@
 # GitHub Actions CI Template for Selenium+Flask MVC
 
-[![](https://github.com/Kirynn/BrainBench/workflows/brainbench-build/badge.svg)](https://github.com/Kirynn/BrainBench/actions)
+[![](https://github.com/Kirynn/BrainBench/workflows/Python%20application/badge.svg)](https://github.com/Kirynn/BrainBench/actions)
 
 ## Instructions: 
 
