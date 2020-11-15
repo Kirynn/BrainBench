@@ -1,12 +1,12 @@
 # GitHub Actions CI Template for Selenium+Flask MVC
 
-[![](https://github.com/CISC-CMPE-327/CI-Python/workflows/Python%20application/badge.svg)](https://github.com/CISC-CMPE-327/CI-Python/actions)
+[![](https://github.com/Kirynn/BrainBench/workflows/brainbench-build/badge.svg)](https://github.com/Kirynn/BrainBench/actions)
 
 ## Instructions: 
 
 First, clone this repo:
 ```
-git clone https://github.com/CISC-CMPE-327/CI-Python
+git clone https://github.com/Kirynn/BrainBench
 cd CI-Python 
 ```
 
