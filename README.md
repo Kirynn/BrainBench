@@ -6,7 +6,7 @@
 
 First, clone this repo:
 ```
-git clone https://github.com/CISC-CMPE-327/CI-Python
+git clone https://github.com/Kirynn/BrainBench
 cd CI-Python 
 ```
 
