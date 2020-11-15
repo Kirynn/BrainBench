@@ -87,7 +87,7 @@
     * Frontend
 
 ### R8
-#### Vivian is responsible for the test cases in R7
+#### Vivian is responsible for the test cases in R8
 * R8.1.1 For any other requests except the ones above, the system should return a 404 error
     * Frontend
 * R8.1.2 For /, the system should not return a 404 error
