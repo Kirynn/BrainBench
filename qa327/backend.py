@@ -89,7 +89,7 @@ def register_user(email, name, password, password2):
     password_validation_error = validate_password(password)
 
     if not password_validation_error['state']:
-        return password_validation_error
+        return password_validation_error['msg']
 
     if password != password2:
         return "The passwords do not match."
