@@ -4,9 +4,9 @@ from seleniumbase import BaseCase
 
 from qa327_test.conftest import base_url
 
-# R2: Eduard's test cases
 @pytest.mark.usefixtures('server')
 class BadLoginTest(BaseCase):
+
     def test_bad_login(self):
         """ Checks if the login failed, if correct error message appears """
         self.open(base_url + '/login')
