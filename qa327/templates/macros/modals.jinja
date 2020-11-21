@@ -19,11 +19,11 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend"><label for="Quantity" class="input-group-text">Quantity</label>
                         </div>
-                        <input name="Quantity" type="number" min=1 max=100 class="form-control" value="1">
+                        <input name="Quantity" type="number" min=1 max=100 class="form-control" id="add-ticket-quantity" value="1">
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend"><label for="Price" class="input-group-text">Price</label></div>
-                        <input name="Price" type="number" min=10 max=100 class="form-control" value="10.00">
+                        <input name="Price" type="number" min=10 max=100 class="form-control" id="add-ticket-price" value="10.00">
                     </div>
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="Date">Expiration Date</label>
@@ -60,7 +60,7 @@
                             <div class="input-group col-sm px-0 mr-1">
                                 <div class="input-group-prepend"><label for="Name" class="input-group-text">Ticket
                                         Name</label></div>
-                                <input type="text" name="Name" class="form-control" id="add-ticket-name"
+                                <input type="text" name="Name" class="form-control" id="buy-ticket-name"
                                     placeholder="Enter Name" readonly>
                             </div>
                             <div class="input-group col-4 px-0 ml-1">
@@ -79,7 +79,7 @@
                         <div class="input-group">
                             <div class="input-group-prepend"><label for="Quantity"
                                     class="input-group-text">Quantity</label></div>
-                            <input name="Quantity" type="number" min=1 max=100 class="form-control" value="1">
+                            <input name="Quantity" type="number" min=1 max=100 class="form-control" id="buy-ticket-quantity" value="1">
                         </div>
                         <small id="buy-max" class="form-text text-muted">Max available: .</small>
                     </div>
