@@ -29,7 +29,7 @@ def validate_password(password):
     if len(password) < 6: 
         pkg['state'] = False
         pkg['msg'] = "Password length must be greator then 6."
-    if re.search(regex, password) == None:
+    elif re.search(regex, password) == None:
         pkg['state'] = False
         pkg['msg'] = "You password must meet the required complexity: minimum length 6, at least one upper case, at least one lower case, and at least one special character (@$!%*?&)"
 
