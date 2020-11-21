@@ -23,11 +23,17 @@ def validate_name(name):
 
 def validate_password(password):
 
-    regex = r"(^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$)"
-    if len(password) < 6: return "Password length must be greator then 6."
-    if re.search(regex, password) == None: return "You password must meet the required complexity: minimum length 6, at least one upper case, at least one lower case, and at least one special character (@$!%*?&)"
+    pkg = {'state': True, 'msg': ''}
 
-    return None
+    regex = r"(^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$)"
+    if len(password) < 6: 
+        pkg['state'] = False
+        pkg['msg'] = "Password length must be greator then 6."
+    elif re.search(regex, password) == None:
+        pkg['state'] = False
+        pkg['msg'] = "You password must meet the required complexity: minimum length 6, at least one upper case, at least one lower case, and at least one special character (@$!%*?&)"
+
+    return pkg
 
 def get_user(email):
     """
@@ -82,8 +88,8 @@ def register_user(email, name, password, password2):
 
     password_validation_error = validate_password(password)
 
-    if not password_validation_error == None:
-        return password_validation_error
+    if not password_validation_error['state']:
+        return password_validation_error['msg']
 
     if password != password2:
         return "The passwords do not match."
