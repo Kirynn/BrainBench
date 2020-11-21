@@ -22,15 +22,15 @@ class homepageTest(BaseCase):
 		"""register new user"""
 		self.open(base_url + '/register')
 		self.type("#email", "test_frontend@test.com")
-		self.type("#name", "test_frontend")
-		self.type("#password", "Test_frontend!")
-		self.type("#password2", "Test_frontend!")
+		self.type("#name", "testFrontend")
+		self.type("#password", "TestFrontend!")
+		self.type("#password2", "TestFrontend!")
 		self.click('input[type="submit"]')
 
 	def login(self):
 		self.open(base_url + '/login')
 		self.type("#email", "test_frontend@test.com")
-		self.type("#password", "Test_frontend!")
+		self.type("#password", "TestFrontend!")
 		self.click('input[type="submit"]')
 
 	def testPageHeader(self):
@@ -39,11 +39,12 @@ class homepageTest(BaseCase):
 		self.login()
 		self.open(base_url + '/')
 		self.assert_element('#welcome-header')
-		self.assert_text('Welcome test_frontend!', '#welcome-header')
+		self.assert_text('Welcome testfrontend!', '#welcome-header')
 
 	''' THIS ISN'T IMPLEMENTED YET
 	def testUserBalance(self):
 		self.open(base_url + '/logout')
+		self.registerTestUser()
 		self.login()
 		self.assert_element('#balance')
 		self.assert_text('$0.00', '#balance')
@@ -51,51 +52,53 @@ class homepageTest(BaseCase):
 
 	def testLogoutButtonExists(self):
 		self.open(base_url + '/logout')
+		self.registerTestUser()
 		self.login()
 		self.assert_element("#logout-button")
 
 	def testNewTicketSubmission(self):
 		self.open(base_url + '/logout')
+		self.registerTestUser()
 		self.login()
 		self.click('#btn-add-ticket')
-		self.type("#add-ticket-name", "test_ticket_2")
-		self.type("#add-ticket-quantity", "20")
-		self.type("#add-ticket-price", "20")
-		self.type("#add-ticket-expiry", "20")
+		self.type("#submit-ticket-name", "test_ticket_2")
+		self.type("#submit-ticket-quantity", 10)
+		self.type("#submit-ticket-price", 20)
 		self.type("#submit-datetime", "01/01/2099")
 		self.click('#submit-ticket-button')
 
 	def testBuyNewTicket(self):
 		self.open(base_url + '/logout')
+		self.registerTestUser()
 		self.login()
 		self.click('#btn-buy-test')
-		self.type("#buy-ticket-name", "test_frontend")
-		self.type("#buy-ticket-quan", "1")
-		self.click("buy-ticket-button")
+		self.sleep(2)
+		#self.type("#buy-ticket-name", "test_frontend")
+		#self.click("#buy-ticket-quantity")
+		self.type("#buy-ticket-quantity", 10)
+		#self.click("#buy-ticket-name")
+		self.click("#buy-ticket-button")
 
 	def testUpdateExistingTicket(self):
 		self.open(base_url + '/logout')
+		self.registerTestUser()
 		self.login()
-		self.click('#btn-update-test 2')
-		self.type("#add-ticket-name", "test_ticket_2")
-		self.type("#add-ticket-quantity", "20")
-		self.type("#add-ticket-price", "20")
-		self.type("#add-ticket-expiry", "20")
+		self.click('#btn-update-test')
+		self.type("#submit-ticket-name", "test_ticket_2")
+		self.type("#submit-ticket-quantity", 10)
+		self.type("#submit-ticket-price", 20)
 		self.type("#submit-datetime", "01/01/2099")
 		self.click('#submit-ticket-button')
 
 	#These next tests will be changed once the appropriate pages are implemented
 	def testSellPost(self):
 		self.open(base_url + "/sell")
-		status = self.get_link_status_code(self.get_current_url())
-		self.assert_equal(status, "404")
+		self.assert_element("#Error-funny")
 
 	def testBuyPost(self):
 		self.open(base_url + "/buy")
-		status = self.get_link_status_code(self.get_current_url())
-		self.assert_equal(status, "404")
+		self.assert_element("#Error-funny")
 
 	def testUpdatePost(self):
 		self.open(base_url + "/update")
-		status = self.get_link_status_code(self.get_current_url())
-		self.assert_equal(status, "404")
+		self.assert_element("#Error-funny")

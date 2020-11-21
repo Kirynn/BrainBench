@@ -76,7 +76,7 @@
                 <td>{{ticket.quantity}}</td>
                 <td>{{ticket.price}}</td>
                 <td>{{ticket.date}}</td>
-                <td><button class="btn btn-link p-0" id="btn-update-{{ticket.name}}"
+                <td><button class="btn btn-link p-0" id="btn-update-{{ ticket.name | replace(' ', '_') }}"
                         onclick='LoadUpdateModal("{{ticket.name}}", {{ticket.quantity}}, {{ticket.price}}, "{{ticket.date}}")'>Update Ticket</button>
                 </td>
             </tr>

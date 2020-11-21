@@ -30,17 +30,14 @@ class test404Page(BaseCase):
 		self.assert_no_404_errors()
 
 	# These next tests will be changed once the appropriate pages are implemented
-	def testSellPost(self):
+	def test404OnSell(self):
 		self.open(base_url + "/sell")
-		status = self.get_link_status_code(self.get_current_url())
-		self.assert_equal(status, "404")
+		self.assert_element("#Error-funny")
 
-	def testBuyPost(self):
+	def test404OnBuy(self):
 		self.open(base_url + "/buy")
-		status = self.get_link_status_code(self.get_current_url())
-		self.assert_equal(status, "404")
+		self.assert_element("#Error-funny")
 
-	def testUpdatePost(self):
+	def test404OnUpdate(self):
 		self.open(base_url + "/update")
-		status = self.get_link_status_code(self.get_current_url())
-		self.assert_equal(status, "404")
+		self.assert_element("#Error-funny")
