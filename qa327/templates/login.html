@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{% block title %}Log In{% endblock %}</h1>
-<h4>{{message}}</h4>
+<h1 id="login-prompt">{% block title %}Please Log In{% endblock %}</h1>
+<h4 id="login_msg">{{message}}</h4>
 <form method="post">
   <div class="form-group">
     <label for="email">Email</label>

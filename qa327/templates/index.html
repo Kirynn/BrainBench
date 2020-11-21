@@ -35,7 +35,7 @@
                 <td class="ticket-name">{{ticket.name}}</td>
                 <td class="ticket-quantity-available">{{ticket.quantity}}</td>
                 <td class="ticket-quantity-available">{{ticket.price}}</td>
-                <td><button class="btn btn-link p-0" onclick="LoadBuyModal('{{ticket.name}}', {{ticket.quantity}}, {{ticket.price}}, '{{ticket.date}}' )">Buy Ticket</button></td>
+                <td><button class="btn btn-link p-0" onclick="LoadBuyModal('{{ticket.name}}', '{{ticket.quantity}}', '{{ticket.price}}', '{{ticket.date}}' )">Buy Ticket</button></td>
             </tr>
             {% endfor %}
             {% else %}
@@ -77,7 +77,7 @@
                 <td>{{ticket.price}}</td>
                 <td>{{ticket.date}}</td>
                 <td><button class="btn btn-link p-0"
-                        onclick='LoadUpdateModal("{{ticket.name}}", {{ticket.quantity}}, {{ticket.price}}, "{{ticket.date}}")'>Update Ticket</button>
+                        onclick="LoadUpdateModal('{{ticket.name}}', '{{ticket.quantity}}', '{{ticket.price}}', '{{ticket.date}}' )">Update Ticket</button>
                 </td>
             </tr>
             {% endfor %}
