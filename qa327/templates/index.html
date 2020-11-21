@@ -8,7 +8,7 @@
 {% block content %}
 <header class="sub-header">
     <h2 id="welcome-header">Welcome {{ user.name }}!</h2>
-    <button class="btn btn-primary"><a href='/logout' class="text-light">Logout</a></button>
+    <button class="btn btn-primary"><a id="logout-button" href='/logout' class="text-light">Logout</a></button>
 </header>
 
 <section id="main" class="my-4">
@@ -31,11 +31,11 @@
         <tbody>
             {% if not tickets == None %}
             {% for ticket in tickets %}
-            <tr class="ticket">
+            <tr id={{ticket.name}} class="ticket">
                 <td class="ticket-name">{{ticket.name}}</td>
                 <td class="ticket-quantity-available">{{ticket.quantity}}</td>
                 <td class="ticket-quantity-available">{{ticket.price}}</td>
-                <td><button class="btn btn-link p-0" onclick="LoadBuyModal('{{ticket.name}}', {{ticket.quantity}}, {{ticket.price}}, '{{ticket.date}}' )">Buy Ticket</button></td>
+                <td><button class="btn btn-link p-0" id="btn-buy-{{ticket.name}}" onclick="LoadBuyModal('{{ticket.name}}', {{ticket.quantity}}, {{ticket.price}}, '{{ticket.date}}' )">Buy Ticket</button></td>
             </tr>
             {% endfor %}
             {% else %}
@@ -52,7 +52,7 @@
                 <h3>Update Tickets</h3>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-primary mx-3" data-target="#submit-modal" data-toggle="modal">Add
+                <button id="btn-add-ticket" type="button" class="btn btn-primary mx-3" data-target="#submit-modal" data-toggle="modal">Add
                     New Ticket</button>
             </div>
         </div>
@@ -76,7 +76,7 @@
                 <td>{{ticket.quantity}}</td>
                 <td>{{ticket.price}}</td>
                 <td>{{ticket.date}}</td>
-                <td><button class="btn btn-link p-0"
+                <td><button class="btn btn-link p-0" id="btn-update-{{ ticket.name | replace(' ', '_') }}"
                         onclick='LoadUpdateModal("{{ticket.name}}", {{ticket.quantity}}, {{ticket.price}}, "{{ticket.date}}")'>Update Ticket</button>
                 </td>
             </tr>
