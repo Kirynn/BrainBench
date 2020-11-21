@@ -49,7 +49,6 @@ class homepageTest(BaseCase):
 		self.assert_text('$0.00', '#balance')
 	'''
 
-
 	def testLogoutButtonExists(self):
 		self.open(base_url + '/logout')
 		self.login()
@@ -85,6 +84,7 @@ class homepageTest(BaseCase):
 		self.type("#submit-datetime", "01/01/2099")
 		self.click('#submit-ticket-button')
 
+	#These next tests will be changed once the appropriate pages are implemented
 	def testSellPost(self):
 		self.open(base_url + "/sell")
 		status = self.get_link_status_code(self.get_current_url())
