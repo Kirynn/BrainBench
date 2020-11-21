@@ -5,10 +5,15 @@
 
 | Emoji Name   |                                                                                           | Emoji |
 |--------------|-------------------------------------------------------------------------------------------|-------|
-| :star2:      | Introduce new features                                                                    |   🌟    |
-| :bug:        | Fix a bug                                                                                 |  🐛     |
-| :eyeglasses: | Improve of code readability                                                               |  👓    |
-| :lipstick:   | Modify of how something appears to end user (No changes to system's core behaviour)       |   💄    |
+| : star2 :      | Introduce new features                                                                    |   🌟    |
+| : bug :        | Fix a bug                                                                                 |  🐛     |
+| : eyeglasses : | Improve of code readability                                                               |  👓    |
+| : lipstick :   | Modify of how something appears to end user (No changes to system's core behaviour)       |   💄    |
+
+- [ ] 🌟 
+- [ ] :bug:
+- [ ] :eyeglasses:
+- [ ] :lipstick:
 
 
 <em>The table above is just the changes pull requests have most frequently. If the above doesn't match
