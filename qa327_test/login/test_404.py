@@ -15,19 +15,19 @@ class test404Page(BaseCase):
 
 	def testNot404OnHomepage(self):
 		self.open(base_url + '/')
-		self.assert_no_404_errors()
+		self.assert_element_not_present("#Error-funny")
 
 	def testNot404OnLogin(self):
 		self.open(base_url + '/login')
-		self.assert_no_404_errors()
+		self.assert_element_not_present("#Error-funny")
 
 	def testNot404OnRegister(self):
-		self.open(base_url + '/register')
-		self.assert_no_404_errors()
+		self.open(base_url)
+		self.assert_element_not_present("#Error-funny")
 
 	def testNot404OnLogout(self):
 		self.open(base_url + '/logout')
-		self.assert_no_404_errors()
+		self.assert_element_not_present("#Error-funny")
 
 	# These next tests will be changed once the appropriate pages are implemented
 	def test404OnSell(self):
