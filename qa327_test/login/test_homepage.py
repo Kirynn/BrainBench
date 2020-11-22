@@ -83,7 +83,7 @@ class homepageTest(BaseCase):
 		self.open(base_url + '/logout')
 		self.registerTestUser()
 		self.login()
-		self.click('#btn-update-test')
+		self.click('#btn-update-test_2')
 		self.type("#submit-ticket-name", "test_ticket_2")
 		self.type("#submit-ticket-quantity", 10)
 		self.type("#submit-ticket-price", 20)
