@@ -38,6 +38,7 @@ class SimpleLoginTests(BaseCase):
         """  If the user hasn't logged in, show the login page + current page has a message that says 'please login'"""
         self.open(base_url + '/logout')
         self.open(base_url + '/login')
+        self.open(base_url)
         self.assert_element("#login-prompt")
 
 

@@ -22,22 +22,26 @@ class redirectLoginTests(BaseCase):
         """  Test logged out redirect on / """
         self.open(base_url + '/logout')
         self.open(base_url + '/')
+        self.open(base_url)
         self.assert_element("#login-prompt")
 
     def test_selllogin(self): #R7.2
         """ Test logged out redirect on /sell """
         self.open(base_url + '/logout')
         self.open(base_url + '/sell')
+        self.open(base_url)
         self.assert_element("#login-prompt")
 
     def test_updatelogin(self): #R7.3
         """ Test logged out redirect on /update """
         self.open(base_url + '/logout')
         self.open(base_url + '/update')
+        self.open(base_url)
         self.assert_element("#login-prompt")
 
     def test_buylogin(self): #R7.4
         """ Test logged out redirect on /buy """
         self.open(base_url + '/logout')
         self.open(base_url + '/buy')
+        self.open(base_url)
         self.assert_element("#login-prompt")
