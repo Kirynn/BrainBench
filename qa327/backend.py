@@ -51,6 +51,7 @@ def login_user(email, password):
     :param email: the email of the user
     :param password: the password input
     :return: the user if login succeeds
+    :return: message "email/password combination incorrect" if login fails
     """
     # if this returns a user, then the name already exists in database
 

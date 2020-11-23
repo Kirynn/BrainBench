@@ -9,6 +9,7 @@ class BadLoginTest(BaseCase):
 
     def test_bad_login(self):
         """ Checks if the login failed, if correct error message appears """
+        self.open(base_url + '/logout')
         self.open(base_url + '/login')
         self.type("#email", "badytest@test.com")
         self.type("#password", "FAILEDpassword!")
