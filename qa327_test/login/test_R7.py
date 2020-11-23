@@ -18,7 +18,7 @@ def test_server_is_live():
 @pytest.mark.usefixtures('server')
 class redirectLoginTests(BaseCase):
 
-    def login_redirect(self): #R7.1
+    def test_loginredirect(self): #R7.1
         """  Test logged out redirect on / """
         self.open(base_url + '/logout')
         self.open(base_url + '/')

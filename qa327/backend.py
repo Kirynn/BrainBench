@@ -60,7 +60,7 @@ def login_user(email, password):
 
     user = get_user(email)
     if not user or not check_password_hash(user.password, password):
-        return "Email/password combination incorrect."
+        return None
     return user
 
 
