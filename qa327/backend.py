@@ -1,4 +1,4 @@
-from qa327.models import db, User, Ticket
+from qa327.models import db, User, Ticket, Order
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from datetime import date, datetime
@@ -156,7 +156,7 @@ def check_if_expired(ticket : Ticket) -> bool:
 
     return ticket.date <= date.today().strftime("%Y%m%d")
 
-def validate_ticket(name, price, day, amount, user):
+def validate_ticket_inputs(name, price, day, amount, user):
 
     day : str = day.replace("/", "")
     name : str = name.strip()
@@ -195,7 +195,7 @@ def buy_ticket(name : str, price : str, day : str, amount : str, user : User) ->
     if (ticket == None):
         return "The requested ticket was not found"
 
-    if (ticker.quantity > amount):
+    if (ticket.quantity > amount):
         return "There are not enough tickets available"
 
     if (user.balance < price):
@@ -231,7 +231,7 @@ def update_ticket(name : str, price : str, day : str, amount : str, user : User)
     if (ticket == None):
         return "The requested ticket was not found"
 
-    if (ticker.quantity > amount):
+    if (ticket.quantity > amount):
         return "There are not enough tickets available"
 
     if (user.balance < price):
