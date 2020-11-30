@@ -1,7 +1,8 @@
 from qa327.models import db, User, Ticket
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from datetime import date
+from datetime import date, datetime
+from typing import List, Union
 import re
 
 """
@@ -144,12 +145,101 @@ def create_ticket(name, quantity, price, date):
     return None
 
 
-def get_available_tickets(user):
-    # Placeholder code for later
-    return user.tickets
+def get_available_tickets(user : User = None) -> List[Ticket]:
+
+    if (user):
+        return Ticket.query.filter_by(creator=user.id)
+    return Ticket.query.all()
 
 
-def check_if_expired(ticket):
-    currDay = date.today().strftime("%Y%m%d")
+def check_if_expired(ticket : Ticket) -> bool:
 
-    return ticket.date <= currDay
+    return ticket.date <= date.today().strftime("%Y%m%d")
+
+def validate_ticket(name, price, day, amount, user):
+
+    day : str = day.replace("/", "")
+    name : str = name.strip()
+    price : int = int(price)
+    amount : int = int(amount)
+
+    if re.sub(r'[^A-Za-z0-9 ]+', '', name) == None:
+        return "Name must be alphanumeric"
+
+    if (6 > len(name) > 60):
+        return "Name length must be between 6 and 60 characters"
+
+    if (10 > price > 100):
+        return "Please enter an amount between 10 and 100"
+
+    if datetime.strptime(day, '%Y%m%d').date() < date.today():
+        return "This ticket has expired"
+
+    if user.balance < price:
+        return "You do not have enough funds to purchase this"
+
+    if 0 > amount > 100:
+        return "Please select 1 to 100 tickets"
+
+    return None
+
+def buy_ticket(name : str, price : str, day : str, amount : str, user : User) -> Union[str, None]:
+
+
+    errors = validate_ticket_inputs(name, price, day, amount, user)
+
+    if (errors != None): return errors
+
+    ticket = Ticket.query.filter_by(name=name).filter_by(date=day).first()
+
+    if (ticket == None):
+        return "The requested ticket was not found"
+
+    if (ticker.quantity > amount):
+        return "There are not enough tickets available"
+
+    if (user.balance < price):
+        return "You do not have enough money to purcahse the tickets"
+
+
+    ticket.quantity -= amount
+    user.balance -= price
+    order = Order(user.id, ticket.id, amount)
+
+    db.session.add(order)
+    db.session.commit()
+
+def sell_ticket(name : str, price : str, day : str, amount : str, user : User):
+
+    errors = validate_ticket_inputs(name, price, day, amount, user)
+
+    if (errors != None): return errors
+
+    ticket = Ticket(name=name, price=float(price), date=day.replace("/", ""), creator=user.id, quantity=int(amount))
+
+    db.seesion.add(ticket)
+    db.session.commmit()
+
+def update_ticket(name : str, price : str, day : str, amount : str, user : User):
+
+    errors = validate_ticket_inputs(name, price, day, amount, user)
+
+    if (errors != None): return errors
+
+    ticket = Ticket.query.filter_by(name=name).filter_by(date=day).first()
+
+    if (ticket == None):
+        return "The requested ticket was not found"
+
+    if (ticker.quantity > amount):
+        return "There are not enough tickets available"
+
+    if (user.balance < price):
+        return "You do not have enough money to purcahse the tickets"
+
+    ticket.name = name
+    ticket.price = float(price)
+    ticket.quantity = int(amount)
+    ticket.date = day.replace("/", "")
+
+    db.session.commit()

@@ -11,6 +11,9 @@ http requests from the client (browser) through templating.
 The html templates are stored in the 'templates' folder. 
 """
 
+def get_error_message():
+    session.get('error_message')
+    return session.pop('error_message', None)
 
 @app.route('/register', methods=['GET'])
 def register_get():
@@ -36,8 +39,7 @@ def register_post():
 def login_get():
 
     if not session.get("error_message") is None:
-        message = session.get('error_message')
-        session.pop('error_message', None)
+        message = get_error_message()
     else:
         message = "Please Login"
 
@@ -110,22 +112,32 @@ def authenticate(inner_function):
     return wrapped_inner
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 @authenticate
 def profile(user):
     # authentication is done in the wrapper function
     # see above.
+
     # by using @authenticate, we don't need to re-write
     # the login checking code all the time for other
     # front-end portals
+
+    if not session.get("error_message") is None:
+        session.get('error_message')
+        m = session.pop('error_message', None)
+        print(m)
+        print('Ive been redirected')
+    else:
+        m = ''
+
     # TEMP as we have no way to add a ticket to the database ATM (part of R5).
     tickets = [
-        Ticket(name="test", quantity=10, price=20, date="10/10/2020", creator=2),
-        Ticket(name="test 2", quantity=18, price=18, date="10/10/2020", creator=1),
-        Ticket(name="Vivan Rules", quantity=1, price=60, date="10/10/2020", creator=2)
+        Ticket(name="test", quantity=10, price=20, date="2020/10/10", creator=2),
+        Ticket(name="test 2", quantity=18, price=18, date="2020/10/10", creator=1),
+        Ticket(name="Vivan Rules", quantity=0, price=60, date="2020/10/10", creator=2)
     ]
 
-    return render_template('index.html', user=user, tickets=tickets)
+    return render_template('index.html', user=user, tickets=tickets, msg=m)
 
 
 @app.route('/*')
@@ -151,3 +163,57 @@ def view():
 
     print(request.form.to_dict())
     return ('', 204)
+
+
+
+@app.route('/buy', methods=['POST'], endpoint='buy_ticket')
+@authenticate
+def buy_ticket(): 
+
+    name = request.form.get('Name')
+    price = request.form.get('Price')
+    date = request.form.get('Date')
+    quantity = request.form.get('Quantity')
+    user = session['logged_in']
+
+    error_message = bn.buy_ticket(name, price, date, quantity, user)
+
+    if error_message:
+        session['error_message'] = error_message
+
+    return ('', 200)
+    
+
+@app.route('/update', methods=['POST'], endpoint="update_ticket")
+@authenticate
+def update_ticket(): 
+
+    name = request.form.get('Name')
+    price = request.form.get('Price')
+    date = request.form.get('Date')
+    quantity = request.form.get('Quantity')
+    user = session['logged_in']
+
+    error_message = bn.update_ticket(name, price, date, quantity, user)
+
+    if error_message:
+        session['error_message'] = error_message
+
+    return ('', 200)
+
+@app.route('/sell', methods=['POST'], endpoint="sell_ticket")
+@authenticate
+def sell_ticket(): 
+
+    name = request.form.get('Name')
+    price = request.form.get('Price')
+    date = request.form.get('Date')
+    quantity = request.form.get('Quantity')
+    user = session['logged_in']
+
+    error_message = bn.sell_ticket(name, price, date, quantity, user)
+
+    if error_message:
+        session['error_message'] = error_message
+
+    return ('', 200)

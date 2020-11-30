@@ -7,7 +7,7 @@ function SubmitForm(formid, location) {
     let el = $(`form#${formid}-ticket-form`);
     let data = el.serialize();
 
-    if (el.attr('method') == 'POST') $.post(location, data);
+    if (el.attr('method') == 'POST') $.post(location, data, function(res) {window.location.reload()});
     else if(el.attr('method') == 'PUT') $.put(location, data);
 
     $(`#${formid}-modal`).modal('hide');
