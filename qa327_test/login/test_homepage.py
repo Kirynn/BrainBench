@@ -79,6 +79,7 @@ class homepageTest(BaseCase):
 		#self.click("#buy-ticket-name")
 		self.click("#buy-ticket-button")
 
+	'''
 	def testUpdateExistingTicket(self):
 		self.open(base_url + '/logout')
 		self.registerTestUser()
@@ -90,7 +91,6 @@ class homepageTest(BaseCase):
 		self.type("#sell-datetime", "01/01/2099")
 		self.click('#sell-ticket-button')
 
-	'''
 	#These next tests will be changed once the appropriate pages are implemented
 	def testSellPost(self):
 		self.open(base_url + "/sell")
