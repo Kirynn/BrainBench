@@ -198,5 +198,3 @@ def update_ticket(name : str, price : str, day : str, amount : str, user : User,
     ticket.date = day.replace("/", "")
 
     db.session.commit()
-
-    print()
