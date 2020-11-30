@@ -84,11 +84,11 @@ class homepageTest(BaseCase):
 		self.registerTestUser()
 		self.login()
 		self.click('#btn-update-test')
-		self.type("#submit-ticket-name", "test_ticket_2")
-		self.type("#submit-ticket-quantity", 10)
-		self.type("#submit-ticket-price", 20)
-		self.type("#submit-datetime", "01/01/2099")
-		self.click('#submit-ticket-button')
+		self.type("#sell-ticket-name", "test_ticket_2")
+		self.type("#sell-ticket-quantity", 10)
+		self.type("#sell-ticket-price", 20)
+		self.type("#sell-datetime", "01/01/2099")
+		self.click('#sell-ticket-button')
 
 	'''
 	#These next tests will be changed once the appropriate pages are implemented
