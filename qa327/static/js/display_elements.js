@@ -64,8 +64,8 @@ $(function () {
 
     // Use /viewPOST as api endpoint for testing, make sure to change this!!! (you can see it in the console)
 
-    $('#submit-ticket-button').click(function () {SubmitForm('submit', '/viewPOST')});
-    $("#update-ticket-button").click(function() {SubmitForm('update', '/viewPOST')});
-    $("#buy-ticket-button").click(function() {SubmitForm('buy', '/viewPOST')});
+    $('#submit-ticket-button').click(function () {SubmitForm('submit', '/sell')});
+    $("#update-ticket-button").click(function() {SubmitForm('update', '/update')});
+    $("#buy-ticket-button").click(function() {SubmitForm('buy', '/buy')});
 });
 
