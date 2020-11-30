@@ -20,7 +20,6 @@ def register_get():
     # templates are stored in the templates folder
     return render_template('register.html', message='')
 
-
 @app.route('/register', methods=['POST'])
 def register_post():
     email = request.form.get('email')
@@ -44,7 +43,6 @@ def login_get():
         message = "Please Login"
 
     return render_template('login.html', message=message)
-
 
 @app.route('/login', methods=['POST'])
 def login_post():
@@ -70,13 +68,11 @@ def login_post():
     else:
         return render_template('login.html', message='login failed')
 
-
 @app.route('/logout')
 def logout():
     if 'logged_in' in session:
         session.pop('logged_in', None)
     return redirect('/login')
-
 
 def authenticate(inner_function):
     """
@@ -111,7 +107,6 @@ def authenticate(inner_function):
     # return the wrapped version of the inner_function:
     return wrapped_inner
 
-
 @app.route('/', methods=['GET'])
 @authenticate
 def profile(user):
@@ -123,10 +118,7 @@ def profile(user):
     # front-end portals
 
     if not session.get("error_message") is None:
-        session.get('error_message')
-        m = session.pop('error_message', None)
-        print(m)
-        print('Ive been redirected')
+        m = get_error_message()
     else:
         m = ''
 
@@ -138,7 +130,6 @@ def profile(user):
     ]
 
     return render_template('index.html', user=user, tickets=tickets, msg=m)
-
 
 @app.route('/*')
 @app.errorhandler(404)
@@ -155,7 +146,6 @@ def page_not_found(message):
 
     #Pick one of the messages at random
 
-
     return render_template("404.html", message=messages[random.randrange(len(messages))])
   
 @app.route('/viewPOST', methods=['POST'])
@@ -163,8 +153,6 @@ def view():
 
     print(request.form.to_dict())
     return ('', 204)
-
-
 
 @app.route('/buy', methods=['POST'], endpoint='buy_ticket')
 @authenticate
@@ -181,6 +169,7 @@ def buy_ticket():
     if error_message:
         session['error_message'] = error_message
 
+    # Any response will have the webpage reload itself.
     return ('', 200)
     
 
@@ -199,6 +188,7 @@ def update_ticket():
     if error_message:
         session['error_message'] = error_message
 
+    # Any response will have the webpage reload itself.
     return ('', 200)
 
 @app.route('/sell', methods=['POST'], endpoint="sell_ticket")
@@ -216,4 +206,5 @@ def sell_ticket():
     if error_message:
         session['error_message'] = error_message
 
+    # Any response will have the webpage reload itself.
     return ('', 200)

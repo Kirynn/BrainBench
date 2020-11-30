@@ -2,14 +2,14 @@ from qa327.models import db, User, Ticket, Order
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from datetime import date, datetime
-from typing import List, Union
+from typing import List, Union, Optional
 import re
 
 """
 This file defines all backend logic that interacts with database and other services
 """
 
-def validate_email(email):
+def validate_email(email : str):
 
     # RFC 5322 specification: https://emailregex.com/
     regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
@@ -22,7 +22,7 @@ def validate_name(name):
 
     return None
 
-def validate_password(password):
+def validate_password(password : str):
 
     pkg = {'state': True, 'msg': ''}
 
@@ -36,7 +36,7 @@ def validate_password(password):
 
     return pkg
 
-def get_user(email):
+def get_user(email : str) -> Optional[User]:
     """
     Get a user by a given email
     :param email: the email of the user
@@ -44,7 +44,6 @@ def get_user(email):
     """
     user = User.query.filter_by(email=email).first()
     return user
-
 
 def login_user(email, password):
     """
@@ -64,8 +63,7 @@ def login_user(email, password):
         return None
     return user
 
-
-def register_user(email, name, password, password2):
+def register_user(email : str, name : str, password : str, password2 : str):
     """
     Register the user to the database
     :param email: the email of the user
@@ -113,7 +111,6 @@ def get_available_tickets(user : User = None) -> List[Ticket]:
         return Ticket.query.filter_by(creator=user.id)
     return Ticket.query.all()
 
-
 def check_if_expired(ticket : Ticket) -> bool:
 
     return ticket.date <= date.today().strftime("%Y%m%d")
@@ -147,7 +144,6 @@ def validate_ticket_inputs(name, price, day, amount, user):
 
 def buy_ticket(name : str, price : str, day : str, amount : str, user : User) -> Union[str, None]:
 
-
     errors = validate_ticket_inputs(name, price, day, amount, user)
 
     if (errors != None): return errors
@@ -163,7 +159,6 @@ def buy_ticket(name : str, price : str, day : str, amount : str, user : User) ->
     if (user.balance < price):
         return "You do not have enough money to purcahse the tickets"
 
-
     ticket.quantity -= amount
     user.balance -= price
     order = Order(user.id, ticket.id, amount)
@@ -171,7 +166,7 @@ def buy_ticket(name : str, price : str, day : str, amount : str, user : User) ->
     db.session.add(order)
     db.session.commit()
 
-def sell_ticket(name : str, price : str, day : str, amount : str, user : User):
+def sell_ticket(name : str, price : str, day : str, amount : str, user : User) -> Union[str, None]:
 
     errors = validate_ticket_inputs(name, price, day, amount, user)
 
@@ -185,7 +180,7 @@ def sell_ticket(name : str, price : str, day : str, amount : str, user : User):
     db.seesion.add(ticket)
     db.session.commmit()
 
-def update_ticket(name : str, price : str, day : str, amount : str, user : User):
+def update_ticket(name : str, price : str, day : str, amount : str, user : User) -> Union[str, None]:
 
     errors = validate_ticket_inputs(name, price, day, amount, user)
 
