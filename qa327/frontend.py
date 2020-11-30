@@ -122,14 +122,7 @@ def profile(user):
     else:
         m = ''
 
-    # TEMP as we have no way to add a ticket to the database ATM (part of R5).
-    tickets = [
-        Ticket(name="test", quantity=10, price=20, date="2020/10/10", creator=2),
-        Ticket(name="test 2", quantity=18, price=18, date="2020/10/10", creator=1),
-        Ticket(name="Vivan Rules", quantity=0, price=60, date="2020/10/10", creator=2)
-    ]
-
-    return render_template('index.html', user=user, tickets=tickets, msg=m)
+    return render_template('index.html', user=user, tickets=bn.get_available_tickets(), msg=m)
 
 @app.route('/*')
 @app.errorhandler(404)
@@ -156,13 +149,12 @@ def view():
 
 @app.route('/buy', methods=['POST'], endpoint='buy_ticket')
 @authenticate
-def buy_ticket(): 
+def buy_ticket(user): 
 
-    name = request.form.get('Name')
-    price = request.form.get('Price')
-    date = request.form.get('Date')
-    quantity = request.form.get('Quantity')
-    user = session['logged_in']
+    name = request.form.get('Name').strip()
+    price = float(request.form.get('Price'))
+    date = request.form.get('Date').replace("/", "")
+    quantity = int(request.form.get('Quantity'))
 
     error_message = bn.buy_ticket(name, price, date, quantity, user)
 
@@ -175,15 +167,15 @@ def buy_ticket():
 
 @app.route('/update', methods=['POST'], endpoint="update_ticket")
 @authenticate
-def update_ticket(): 
+def update_ticket(user): 
 
-    name = request.form.get('Name')
-    price = request.form.get('Price')
-    date = request.form.get('Date')
-    quantity = request.form.get('Quantity')
-    user = session['logged_in']
+    name = request.form.get('Name').strip()
+    price = float(request.form.get('Price'))
+    date = request.form.get('Date').replace("/", "")
+    quantity = int(request.form.get('Quantity'))
+    ticket_id = int(request.form.get("Ticket_Id"))
 
-    error_message = bn.update_ticket(name, price, date, quantity, user)
+    error_message = bn.update_ticket(name, price, date, quantity, user, ticket_id)
 
     if error_message:
         session['error_message'] = error_message
@@ -193,13 +185,12 @@ def update_ticket():
 
 @app.route('/sell', methods=['POST'], endpoint="sell_ticket")
 @authenticate
-def sell_ticket(): 
+def sell_ticket(user): 
 
-    name = request.form.get('Name')
-    price = request.form.get('Price')
-    date = request.form.get('Date')
-    quantity = request.form.get('Quantity')
-    user = session['logged_in']
+    name = request.form.get('Name').strip()
+    price = float(request.form.get('Price'))
+    date = request.form.get('Date').replace("/", "")
+    quantity = int(request.form.get('Quantity'))
 
     error_message = bn.sell_ticket(name, price, date, quantity, user)
 

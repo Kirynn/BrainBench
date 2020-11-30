@@ -117,18 +117,13 @@ def check_if_expired(ticket : Ticket) -> bool:
 
 def validate_ticket_inputs(name, price, day, amount, user):
 
-    day : str = day.replace("/", "")
-    name : str = name.strip()
-    price : int = int(price)
-    amount : int = int(amount)
-
     if re.sub(r'[^A-Za-z0-9 ]+', '', name) == None:
         return "Name must be alphanumeric"
 
     if (6 > len(name) > 60):
         return "Name length must be between 6 and 60 characters"
 
-    if (10 > price > 100):
+    if not (price in range(10, 101)):
         return "Please enter an amount between 10 and 100"
 
     if datetime.strptime(day, '%Y%m%d').date() < date.today():
@@ -137,12 +132,12 @@ def validate_ticket_inputs(name, price, day, amount, user):
     if user.balance < price:
         return "You do not have enough funds to purchase this"
 
-    if 0 > amount > 100:
+    if not (amount in range(1, 101)):
         return "Please select 1 to 100 tickets"
 
     return None
 
-def buy_ticket(name : str, price : str, day : str, amount : str, user : User) -> Union[str, None]:
+def buy_ticket(name : str, price : float, day : str, amount : int, user : User) -> Union[str, None]:
 
     errors = validate_ticket_inputs(name, price, day, amount, user)
 
@@ -166,7 +161,7 @@ def buy_ticket(name : str, price : str, day : str, amount : str, user : User) ->
     db.session.add(order)
     db.session.commit()
 
-def sell_ticket(name : str, price : str, day : str, amount : str, user : User) -> Union[str, None]:
+def sell_ticket(name : str, price : float, day : str, amount : int, user : User) -> Union[str, None]:
 
     errors = validate_ticket_inputs(name, price, day, amount, user)
 
@@ -175,18 +170,18 @@ def sell_ticket(name : str, price : str, day : str, amount : str, user : User) -
     if (Ticket.query.filter_by(name=name).filter_by(date=day).first() != None):
         return "There is a ticket already specified"
 
-    ticket = Ticket(name=name, price=float(price), date=day.replace("/", ""), creator=user.id, quantity=int(amount))
+    ticket = Ticket(name=name, price=price, date=day, creator=user.id, quantity=amount)
 
-    db.seesion.add(ticket)
-    db.session.commmit()
+    db.session.add(ticket)
+    db.session.commit()
 
-def update_ticket(name : str, price : str, day : str, amount : str, user : User) -> Union[str, None]:
+def update_ticket(name : str, price : str, day : str, amount : str, user : User, ticket_id : int) -> Union[str, None]:
 
     errors = validate_ticket_inputs(name, price, day, amount, user)
 
     if (errors != None): return errors
 
-    ticket = Ticket.query.filter_by(name=name).filter_by(date=day).first()
+    ticket = Ticket.query.filter_by(id=ticket_id).first()
 
     if (ticket == None):
         return "The requested ticket was not found"
@@ -198,8 +193,10 @@ def update_ticket(name : str, price : str, day : str, amount : str, user : User)
         return "You do not have enough money to purcahse the tickets"
 
     ticket.name = name
-    ticket.price = float(price)
-    ticket.quantity = int(amount)
+    ticket.price = price
+    ticket.quantity = price
     ticket.date = day.replace("/", "")
 
     db.session.commit()
+
+    print()

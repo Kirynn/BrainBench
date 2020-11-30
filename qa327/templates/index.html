@@ -83,7 +83,7 @@
                 <td>{{ticket.price}}</td>
                 <td>{{ticket.date}}</td>
                 <td><button class="btn btn-link p-0" id="btn-update-{{ ticket.name | replace(' ', '_') }}"
-                        onclick='LoadUpdateModal("{{ticket.name}}", {{ticket.quantity}}, {{ticket.price}}, "{{ticket.date}}")'>Update Ticket</button>
+                        onclick='LoadUpdateModal("{{ticket.name}}", {{ticket.quantity}}, {{ticket.price}}, "{{ticket.date}}", {{ticket.id}})'>Update Ticket</button>
                 </td>
             </tr>
             {% endfor %}
@@ -91,7 +91,7 @@
             <tr>
                 <td colspan="100%" class="text-center p-4">
                     <div>Looks like you don't have any tickets. Why not <a href class="clickable"
-                            data-target="#submit-modal" data-toggle="modal">add one?</a></div>
+                            data-target="#sell-modal" data-toggle="modal">add one?</a></div>
                 </td>
             </tr>
             {% endif %}
@@ -100,9 +100,8 @@
 </section>
 
 {{ addModal("update", "Update Ticket") }}
-{{ addModal("submit", "Add New Ticket") }}
+{{ addModal("sell", "Add New Ticket") }}
 {{ buyModal("buy", "Purchase Ticket") }}
-
 
 <script src="{{ url_for('static', filename='js/display_elements.js') }}"></script>
 {% endblock %}
