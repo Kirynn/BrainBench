@@ -11,11 +11,16 @@
     <button class="btn btn-primary"><a id="logout-button" href='/logout' class="text-light">Logout</a></button>
 </header>
 
+<h3>{{mesage}}</h3>
+
 <section id="main" class="my-4">
     <div class="container mb-3">
         <div class="row">
             <div class="col">
                 <h3>Purchase Tickets</h3>
+            </div>
+            <div class="col">
+                <h6 class="text-right align-middle">Current Balance: {{user.balance}}</h6>
             </div>
         </div>
     </div>
