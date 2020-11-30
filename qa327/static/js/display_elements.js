@@ -1,5 +1,5 @@
 const buyModal = "#buy-modal"
-const submitModal = "#submit-modal"
+const updateModal = "#update-modal"
 
 function SubmitForm(formid, location) {
     
@@ -7,7 +7,12 @@ function SubmitForm(formid, location) {
     let el = $(`form#${formid}-ticket-form`);
     let data = el.serialize();
 
-    if (el.attr('method') == 'POST') $.post(location, data, function(res) {window.location.reload()});
+    if (location == "/update") {
+        data += "&Ticket_Id=" + el.attr("data-ticket-id");
+        console.log(data);
+    }
+
+    if (el.attr('method') == 'POST') $.post(location, data, function(res) {console.log(res); window.location.reload()});
     else if(el.attr('method') == 'PUT') $.put(location, data);
 
     $(`#${formid}-modal`).modal('hide');
@@ -30,13 +35,14 @@ function LoadBuyModal(name, quantity, price, date) {
     });
 }
 
-function LoadUpdateModal(name, quantity, price, date) {
+function LoadUpdateModal(name, quantity, price, date, ticketid) {
 
-    $(submitModal).modal('show');
-    $(submitModal + " input[name='Name']").val(name);
-    $(submitModal + " input[name='Quantity']").val(quantity);
-    $(submitModal + " input[name='Price']").val(price);
-    $(submitModal + " input[name='Date']").val(date);
+    $(updateModal).modal('show');
+    $(updateModal + " input[name='Name']").val(name);
+    $(updateModal + " input[name='Quantity']").val(quantity);
+    $(updateModal + " input[name='Price']").val(price);
+    $(updateModal + " input[name='Date']").val(date);
+    $(updateModal + " #update-ticket-form").attr("data-ticket-id", ticketid);
 }
 
 $(function () {
@@ -64,7 +70,7 @@ $(function () {
 
     // Use /viewPOST as api endpoint for testing, make sure to change this!!! (you can see it in the console)
 
-    $('#submit-ticket-button').click(function () {SubmitForm('submit', '/sell')});
+    $('#sell-ticket-button').click(function () {SubmitForm('submit', '/sell')});
     $("#update-ticket-button").click(function() {SubmitForm('update', '/update')});
     $("#buy-ticket-button").click(function() {SubmitForm('buy', '/buy')});
 });
