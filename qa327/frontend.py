@@ -156,6 +156,8 @@ def buy_ticket(user):
     date = request.form.get('Date').replace("/", "")
     quantity = int(request.form.get('Quantity'))
 
+    print(request.form.to_dict())
+
     error_message = bn.buy_ticket(name, price, date, quantity, user)
 
     if error_message:

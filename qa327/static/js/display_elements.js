@@ -65,12 +65,12 @@ $(function () {
         format: 'YYYY[/]M[/]D'
     });
 
-    $('#add-datetime').datetimepicker();
+    $('#sell-datetime').datetimepicker();
     $('#update-datetime').datetimepicker();
 
     // Use /viewPOST as api endpoint for testing, make sure to change this!!! (you can see it in the console)
 
-    $('#sell-ticket-button').click(function () {SubmitForm('submit', '/sell')});
+    $('#sell-ticket-button').click(function () {SubmitForm('sell', '/sell')});
     $("#update-ticket-button").click(function() {SubmitForm('update', '/update')});
     $("#buy-ticket-button").click(function() {SubmitForm('buy', '/buy')});
 });
