@@ -55,7 +55,8 @@ $(function () {
             today: 'fa fa-calendar-check-o',
             clear: 'fa fa-trash',
             close: 'fa fa-times'
-        }
+        },
+        format: 'YYYY[/]M[/]D'
     });
 
     $('#add-datetime').datetimepicker();
