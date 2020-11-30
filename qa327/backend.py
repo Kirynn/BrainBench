@@ -107,44 +107,6 @@ def register_user(email, name, password, password2):
     db.session.commit()
     return None
 
-
-def create_ticket(name, quantity, price, date):
-    ticket = Ticket.query.filter_by(name=name).first()
-
-    if ticket:
-        return "Ticket already exists"
-
-    if not name.isalnum():
-        return "Ticket name isn't alpha-numeric"
-
-    if not (name[0] == " " or name[-1] == " "):
-        return "Ticket starts or ends with a space"
-
-    if len(name) > 60:
-        return "Ticket name too long"
-
-    if quantity < 1:
-        return "Quantity of ticket must be more than 0"
-
-    if quantity > 100:
-        return "Quantity of ticket must be less than equal to 100"
-
-    if price < 10:
-        return "Price of ticket must be more than equal to 10"
-
-    if price > 100:
-        return "Price of ticket must be less than equal to 100"
-
-    if len(date) != 8 or isinstance(date, str):
-        return "Date must be given in the format YYYYMMDD"
-    
-    new_ticket = Ticket(name=name, quantity=quantity, price=price, date=date)
-
-    db.session.add(new_ticket)
-    db.session.commit()
-    return None
-
-
 def get_available_tickets(user : User = None) -> List[Ticket]:
 
     if (user):
@@ -214,6 +176,9 @@ def sell_ticket(name : str, price : str, day : str, amount : str, user : User):
     errors = validate_ticket_inputs(name, price, day, amount, user)
 
     if (errors != None): return errors
+
+    if (Ticket.query.filter_by(name=name).filter_by(date=day).first() != None):
+        return "There is a ticket already specified"
 
     ticket = Ticket(name=name, price=float(price), date=day.replace("/", ""), creator=user.id, quantity=int(amount))
 
