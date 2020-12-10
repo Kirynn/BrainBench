@@ -41,14 +41,43 @@ class homepageTest(BaseCase):
 		self.assert_element('#welcome-header')
 		self.assert_text('Welcome testfrontend!', '#welcome-header')
 
-	''' THIS ISN'T IMPLEMENTED YET
 	def testUserBalance(self):
 		self.open(base_url + '/logout')
 		self.registerTestUser()
 		self.login()
 		self.assert_element('#balance')
-		self.assert_text('$0.00', '#balance')
-	'''
+
+	def testTicket(self):
+		#Testing new ticket submission
+		self.open(base_url + '/logout')
+		self.registerTestUser()
+		self.login()
+		self.click('#btn-add-ticket')
+		self.sleep(1)
+		self.type("#sell-ticket-name", "testTicket")
+		self.type("#sell-ticket-quantity", 10)
+		self.type("#sell-ticket-price", 20)
+		self.type("#sell-datetime", "2099/01/01")
+		self.click('#sell-ticket-button')
+
+		self.sleep(1)
+
+		#Testing updating new ticket
+		self.click('#btn-update-testTicket')
+		self.sleep(1)
+		self.type("#update-ticket-name", "testTicketUpdated")
+		self.type("#update-ticket-quantity", 15)
+		self.type("#update-ticket-price", 25)
+		self.type("#update-datetime", "2099/01/01")
+		self.click('#update-ticket-button')
+
+		self.sleep(1)
+
+		#Testing purchasing of ticket
+		self.click('#btn-buy-testTicketUpdated')
+		self.sleep(1)
+		self.type("#buy-ticket-quantity", 10)
+		self.click("#buy-ticket-button")
 
 	def testLogoutButtonExists(self):
 		self.open(base_url + '/logout')
@@ -56,51 +85,44 @@ class homepageTest(BaseCase):
 		self.login()
 		self.assert_element("#logout-button")
 
-	def testNewTicketSubmission(self):
+	#These next tests will be changed once the appropriate pages are implemented
+	def testPost(self):
+		#Test for post on add ticket
 		self.open(base_url + '/logout')
 		self.registerTestUser()
 		self.login()
 		self.click('#btn-add-ticket')
-		self.type("#submit-ticket-name", "test_ticket_2")
-		self.type("#submit-ticket-quantity", 10)
-		self.type("#submit-ticket-price", 20)
-		self.type("#submit-datetime", "01/01/2099")
-		self.click('#submit-ticket-button')
-
-	def testBuyNewTicket(self):
-		self.open(base_url + '/logout')
-		self.registerTestUser()
-		self.login()
-		self.click('#btn-buy-test')
-		self.sleep(2)
-		#self.type("#buy-ticket-name", "test_frontend")
-		#self.click("#buy-ticket-quantity")
-		self.type("#buy-ticket-quantity", 10)
-		#self.click("#buy-ticket-name")
-		self.click("#buy-ticket-button")
-
-	'''
-	def testUpdateExistingTicket(self):
-		self.open(base_url + '/logout')
-		self.registerTestUser()
-		self.login()
-		self.click('#btn-update-test')
-		self.type("#sell-ticket-name", "test_ticket_2")
+		self.sleep(1)
+		self.type("#sell-ticket-name", "postTicket")
 		self.type("#sell-ticket-quantity", 10)
 		self.type("#sell-ticket-price", 20)
-		self.type("#sell-datetime", "01/01/2099")
+		self.type("#sell-datetime", "2099/01/01")
+		#Check for POST method in form
+		sellFormMethod = self.get_attribute("#sell-ticket-form", "method")
+		self.assert_equal(sellFormMethod, "post")
 		self.click('#sell-ticket-button')
 
-	#These next tests will be changed once the appropriate pages are implemented
-	def testSellPost(self):
-		self.open(base_url + "/sell")
-		self.assert_element("#Error-funny")
+		self.sleep(1)
 
-	def testBuyPost(self):
-		self.open(base_url + "/buy")
-		self.assert_element("#Error-funny")
+		#Test for post on update ticket
+		self.click('#btn-update-postTicket')
+		self.sleep(1)
+		self.type("#update-ticket-name", "postTicket")
+		self.type("#update-ticket-quantity", 15)
+		self.type("#update-ticket-price", 25)
+		self.type("#update-datetime", "2099/01/01")
+		#Check for POST method in form
+		updateFormMethod = self.get_attribute("#update-ticket-form", "method")
+		self.assert_equal(updateFormMethod, "post")
+		self.click('#update-ticket-button')
 
-	def testUpdatePost(self):
-		self.open(base_url + "/update")
-		self.assert_element("#Error-funny")
-	'''
+		self.sleep(1)
+
+		#Test for post on buy ticket
+		self.click('#btn-buy-postTicket')
+		self.sleep(1)
+		self.type("#buy-ticket-quantity", 10)
+		#Check for POST method in form
+		buyFormMethod = self.get_attribute("#buy-ticket-form", "method")
+		self.assert_equal(buyFormMethod, "post")
+		self.click("#buy-ticket-button")
