@@ -28,29 +28,31 @@ class CreatingTickets(BaseCase):
         self.click('input[type="submit"]')
 
     # Actual testing begins
-    def test_login(self):
-        """ This test checks standard login for the Swag Labs store. """
-        
+    def test_a1_login(self):
+        """ This test checks standard login for the Swag Labs store. """        
         self.open(base_url + '/logout')
         self.register()
         self.login()
         self.open(base_url)
+
         self.assert_element("#welcome-header")
         self.assert_text("Welcome pytest", "#welcome-header")
 
-    def test_name_pos(self):
+    def test_all_pos(self):
 
         self.open(base_url + '/logout')
         self.register()
         self.login()
         self.open(base_url)
+
         self.click("#btn-add-ticket")
-        self.type("#sell-ticket-name", "testing name")
-        self.type("#sell-ticket-quantity", 10)
-        self.type("#sell-ticket-price", 20)
-        self.type("#sell-datetime", date.today().strftime("%Y%m%d"))
+        self.type("#sell-ticket-name", "testingName")
+        self.type("#sell-ticket-quantity", "10")
+        self.type("#sell-ticket-price", "20")
+        self.type("#sell-datetime", date.today().strftime("%Y/%m/%d"))
         self.click('#sell-ticket-button')
-        self.assert_element("#testing-name")
+        
+        self.assert_element("#testingName")
 
     def test_name_alpha_neg(self):
 
@@ -58,17 +60,158 @@ class CreatingTickets(BaseCase):
         self.register()
         self.login()
         self.open(base_url)
+
         self.click("#btn-add-ticket")
         self.type("#sell-ticket-name", "b@d!_nam3")
-        self.type("#sell-ticket-quantity", 10)
-        self.type("#sell-ticket-price", 20)
-        self.type("#sell-datetime", date.today().strftime("%Y%m%d"))
+        self.type("#sell-ticket-quantity", "10")
+        self.type("#sell-ticket-price", "20")
+        self.type("#sell-datetime", date.today().strftime("%Y/%m/%d"))
         self.click('#sell-ticket-button')
 
+        self.assert_element("#error_msg")
         self.assert_text("Name must be alphanumeric", "#error_msg")
 
+    def test_name_short(self):
 
+        self.open(base_url + '/logout')
+        self.register()
+        self.login()
+        self.open(base_url)
+
+        self.click("#btn-add-ticket")
+        self.type("#sell-ticket-name", "small")
+        self.type("#sell-ticket-quantity", "10")
+        self.type("#sell-ticket-price", "20")
+        self.type("#sell-datetime", date.today().strftime("%Y/%m/%d"))
+        self.click('#sell-ticket-button')
+
+        self.assert_element("#error_msg")
+        self.assert_text("Name length must be between 6 and 60 characters", "#error_msg")
+
+    def test_name_long(self):
+
+        self.open(base_url + '/logout')
+        self.register()
+        self.login()
+        self.open(base_url)
+
+        self.click("#btn-add-ticket")
+        time.sleep(1)
+        self.type("#sell-ticket-name", "verylongstringohmythisisanextemelywrongnameIwonderifievenspeltextremelycorrectly")
+        self.type("#sell-ticket-quantity", "10")
+        self.type("#sell-ticket-price", "20")
+        self.type("#sell-datetime", date.today().strftime("%Y/%m/%d"))
+        self.click('#sell-ticket-button')
+
+        self.assert_element("#error_msg")
+        self.assert_text("Name length must be between 6 and 60 characters", "#error_msg")
+
+    def test_quantity_small(self):
+
+        self.open(base_url + '/logout')
+        self.register()
+        self.login()
+        self.open(base_url)
+
+        self.click("#btn-add-ticket")
+        self.type("#sell-ticket-name", "testingName")
+        self.type("#sell-ticket-quantity", "0")
+        self.type("#sell-ticket-price", "20")
+        self.type("#sell-datetime", date.today().strftime("%Y/%m/%d"))
+        self.click('#sell-ticket-button')
         
+        self.assert_element("#error_msg")
+        self.assert_text("Please select 1 to 100 tickets", "#error_msg")
+        
+    def test_quantity_large(self):
 
+        self.open(base_url + '/logout')
+        self.register()
+        self.login()
+        self.open(base_url)
 
+        self.click("#btn-add-ticket")
+        self.type("#sell-ticket-name", "testingName")
+        self.type("#sell-ticket-quantity", "1000")
+        self.type("#sell-ticket-price", "20")
+        self.type("#sell-datetime", date.today().strftime("%Y/%m/%d"))
+        self.click('#sell-ticket-button')
+        
+        self.assert_element("#error_msg")
+        self.assert_text("Please select 1 to 100 tickets", "#error_msg")
 
+    def test_price_small(self):
+        
+        self.open(base_url + '/logout')
+        self.register()
+        self.login()
+        self.open(base_url)
+
+        self.click("#btn-add-ticket")
+        self.type("#sell-ticket-name", "testingName")
+        self.type("#sell-ticket-quantity", "10")
+        self.type("#sell-ticket-price", "5")
+        self.type("#sell-datetime", date.today().strftime("%Y/%m/%d"))
+        self.click('#sell-ticket-button')
+        
+        self.assert_element("#error_msg")
+        self.assert_text("Please enter an amount between 10 and 100", "#error_msg")
+
+    def test_price_large(self):
+
+        self.open(base_url + '/logout')
+        self.register()
+        self.login()
+        self.open(base_url)
+
+        self.click("#btn-add-ticket")
+        self.type("#sell-ticket-name", "testingName")
+        self.type("#sell-ticket-quantity", "10")
+        self.type("#sell-ticket-price", "9000")
+        self.type("#sell-datetime", date.today().strftime("%Y/%m/%d"))
+        self.click('#sell-ticket-button')
+        
+        self.assert_element("#error_msg")
+        self.assert_text("Please enter an amount between 10 and 100", "#error_msg")
+
+    def test_bad_date(self):
+
+        self.open(base_url + '/logout')
+        self.register()
+        self.login()
+        self.open(base_url)
+
+        self.click("#btn-add-ticket")
+        self.type("#sell-ticket-name", "testingName")
+        self.type("#sell-ticket-quantity", "10")
+        self.type("#sell-ticket-price", "20")
+        self.type("#sell-datetime", "1977/12/10")
+        self.click('#sell-ticket-button')
+        
+        self.assert_element("#error_msg")
+        self.assert_text("This ticket has expired", "#error_msg")
+
+    def test_handles_duplicates(self):
+
+        self.open(base_url + '/logout')
+        self.register()
+        self.login()
+        self.open(base_url)
+
+        self.click("#btn-add-ticket")
+        self.type("#sell-ticket-name", "testingName")
+        self.type("#sell-ticket-quantity", "10")
+        self.type("#sell-ticket-price", "20")
+        self.type("#sell-datetime", date.today().strftime("%Y/%m/%d"))
+        self.click('#sell-ticket-button')
+
+        # Do it again for a duplicate ticket
+        self.click("#btn-add-ticket")
+        self.type("#sell-ticket-name", "testingName")
+        self.type("#sell-ticket-quantity", "10")
+        self.type("#sell-ticket-price", "20")
+        self.type("#sell-datetime", date.today().strftime("%Y/%m/%d"))
+        self.click('#sell-ticket-button')
+
+        self.assert_element("#error_msg")
+        self.assert_text("There is a ticket already specified", "#error_msg")
