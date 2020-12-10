@@ -11,7 +11,7 @@ def test_server_is_live():
 	assert r.status_code == 200
 
 @pytest.mark.usefixtures('server')
-class testPosting(BaseCase):
+class testBuying(BaseCase):
     def register(self):
         """register new user"""
         self.open(base_url + '/register')
@@ -36,6 +36,12 @@ class testPosting(BaseCase):
         self.type("#sell-datetime", "20990101")
         self.click('#sell-ticket-button')
 
+        
+    def buy_ticket(self):
+        self.click('#btn-buy-test_ticket_2')
+        self.type("#buy-ticket-quantity", 10)
+        self.click('#buy-ticket-button')
+
     def test_posting(self):
         """ This test checks standard login for the Swag Labs store. """
         self.register()
@@ -43,4 +49,9 @@ class testPosting(BaseCase):
         self.open(base_url)
         self.sell_ticket()
         self.assert_element("#test_ticket_2")
+
+        initBalance = self.get_element("#user-balance").text
+
+        self.buy_ticket()
+        self.assertFalse(self.get_element("#user-balance").text == initBalance)
         self.open(base_url + '/logout')
