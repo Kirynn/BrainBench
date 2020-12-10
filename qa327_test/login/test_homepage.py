@@ -1,6 +1,7 @@
 import pytest
 import requests
 from seleniumbase import BaseCase
+import time
 
 from qa327_test.conftest import base_url
 
@@ -12,6 +13,9 @@ def test_server_is_live():
 
 @pytest.mark.usefixtures('server')
 class homepageTest(BaseCase):
+	
+	def sleep(self, seconds):
+		time.sleep(seconds)
 
 	def testLogoutRedirect(self):
 		self.open(base_url + "/logout")
