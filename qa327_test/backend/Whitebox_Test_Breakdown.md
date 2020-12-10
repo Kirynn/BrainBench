@@ -6,7 +6,7 @@ Type of whitebox testing used:
 ```python
     def validate_ticket_inputs(name, price, day, amount, user):
 
-1      if re.sub(r'[^A-Za-z0-9 ]+', '', name) == None:
+1      if not bool(re.search(r'^[A-Za-z0-9 ]*$', name):
           return "Name must be alphanumeric"
 
 2      if (6 > len(name) > 60):
@@ -36,11 +36,13 @@ Type of whitebox testing used:
 |2|FALSE|"Test this really super long ticket name that violates rule 1 woohoo"|11|"20990101"|50|5000|3|
 |3|TRUE|"Test Ticket"|11|"20990101"|50|5000|1|
 |3|FALSE|"Test Ticket"|4|"20990101"|50|5000|4|
+|3|FALSE|"Test Ticket"|999|"20990101"|50|5000|4|
 |4|TRUE|"Test Ticket"|11|"20990101"|50|5000|1|
 |4|FALSE|"Test Ticket"|11|"19990101"|50|5000|5|
 |5|TRUE|"Test Ticket"|11|"20990101"|50|5000|1|
 |5|FALSE|"Test Ticket"|11|"20990101"|50|5000|6|
 |6|TRUE|"Test Ticket"|11|"20990101"|50|5000|1|
 |6|FALSE|"Test Ticket"|11|"20990101"|50|0|7|
-|7|TRUE|"Test Ticket"|11|"20990101"|50|5000|1|
+|6|FALSE|"Test Ticket"|11|"20990101"|50|999|7|
+|7|TRUE|"Test Ticket"|11|"20990101"|0|5000|1|
 |7|FALSE|"Test Ticket"|11|"20990101"|255|5000|8|
