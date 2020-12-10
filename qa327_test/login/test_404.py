@@ -15,19 +15,19 @@ class test404Page(BaseCase):
 
 	def testNot404OnHomepage(self):
 		self.open(base_url + '/')
-		self.assert_element_not_present("#Error-funny")
+		self.assert_element_absent("#Error-funny")
 
 	def testNot404OnLogin(self):
 		self.open(base_url + '/login')
-		self.assert_element_not_present("#Error-funny")
+		self.assert_element_absent("#Error-funny")
 
 	def testNot404OnRegister(self):
 		self.open(base_url)
-		self.assert_element_not_present("#Error-funny")
+		self.assert_element_absent("#Error-funny")
 
 	def testNot404OnLogout(self):
 		self.open(base_url + '/logout')
-		self.assert_element_not_present("#Error-funny")
+		self.assert_element_absent("#Error-funny")
 
 	def test404OnSell(self):
 		assert str(self.get_link_status_code(base_url + "/sell")).startswith('40')
