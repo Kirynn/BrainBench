@@ -37,7 +37,7 @@
         <tbody>
             {% if not tickets == None %}
             {% for ticket in tickets %}
-            <tr id={{ticket.name|replace(' ', '-')}} class="ticket">
+            <tr id={{ticket.name|replace(' ', '')}} class="ticket">
                 <td class="ticket-name">{{ticket.name}}</td>
                 <td class="ticket-quantity-available">{{ticket.quantity}}</td>
                 <td class="ticket-quantity-available">{{ticket.price}}</td>

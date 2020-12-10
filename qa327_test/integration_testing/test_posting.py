@@ -37,7 +37,7 @@ class testPosting(BaseCase):
         self.type("#sell-ticket-name", "test_ticket_2")
         self.type("#sell-ticket-quantity", 10)
         self.type("#sell-ticket-price", 20)
-        self.type("#sell-datetime", "01/01/2099")
+        self.type("#sell-datetime", "20990101")
         self.click('#sell-ticket-button')
         self.assert_element("#test_ticket_2")
         self.open(base_url + '/logout')
