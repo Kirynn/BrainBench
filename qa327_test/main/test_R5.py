@@ -29,6 +29,7 @@ class CreatingTickets(BaseCase):
 
     # Actual testing begins
     def test_a1_login(self):
+
         """ This test checks standard login for the Swag Labs store. """        
         self.open(base_url + '/logout')
         self.register()
@@ -38,6 +39,7 @@ class CreatingTickets(BaseCase):
         self.assert_element("#welcome-header")
         self.assert_text("Welcome pytest", "#welcome-header")
 
+    # All fields of ticket are valid
     def test_all_pos(self):
 
         self.open(base_url + '/logout')
@@ -54,6 +56,7 @@ class CreatingTickets(BaseCase):
         
         self.assert_element("#testingName")
 
+    # Field for name of ticket isn't alphanumeric
     def test_name_alpha_neg(self):
 
         self.open(base_url + '/logout')
@@ -71,6 +74,7 @@ class CreatingTickets(BaseCase):
         self.assert_element("#error_msg")
         self.assert_text("Name must be alphanumeric", "#error_msg")
 
+    # Field for name of ticket is less than 6 characters
     def test_name_short(self):
 
         self.open(base_url + '/logout')
@@ -88,6 +92,7 @@ class CreatingTickets(BaseCase):
         self.assert_element("#error_msg")
         self.assert_text("Name length must be between 6 and 60 characters", "#error_msg")
 
+    # Field for name of ticket is more than 60 characters
     def test_name_long(self):
 
         self.open(base_url + '/logout')
@@ -106,6 +111,7 @@ class CreatingTickets(BaseCase):
         self.assert_element("#error_msg")
         self.assert_text("Name length must be between 6 and 60 characters", "#error_msg")
 
+    # Field for quanity of ticket is less than 1
     def test_quantity_small(self):
 
         self.open(base_url + '/logout')
@@ -123,6 +129,7 @@ class CreatingTickets(BaseCase):
         self.assert_element("#error_msg")
         self.assert_text("Please select 1 to 100 tickets", "#error_msg")
         
+    # Field for quantity of ticket is more than 100
     def test_quantity_large(self):
 
         self.open(base_url + '/logout')
@@ -140,6 +147,7 @@ class CreatingTickets(BaseCase):
         self.assert_element("#error_msg")
         self.assert_text("Please select 1 to 100 tickets", "#error_msg")
 
+    # Field for price of each ticket is less than 10
     def test_price_small(self):
         
         self.open(base_url + '/logout')
@@ -157,6 +165,7 @@ class CreatingTickets(BaseCase):
         self.assert_element("#error_msg")
         self.assert_text("Please enter an amount between 10 and 100", "#error_msg")
 
+    # Field for price of each ticket is more than 100
     def test_price_large(self):
 
         self.open(base_url + '/logout')
@@ -174,6 +183,7 @@ class CreatingTickets(BaseCase):
         self.assert_element("#error_msg")
         self.assert_text("Please enter an amount between 10 and 100", "#error_msg")
 
+    # Field for date of ticket expiry is earlier than the current date
     def test_bad_date(self):
 
         self.open(base_url + '/logout')
@@ -191,6 +201,7 @@ class CreatingTickets(BaseCase):
         self.assert_element("#error_msg")
         self.assert_text("This ticket has expired", "#error_msg")
 
+    # Makes two of the exact same tickets to see how duplicates are handled by the app
     def test_handles_duplicates(self):
 
         self.open(base_url + '/logout')
