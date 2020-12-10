@@ -39,7 +39,7 @@ class testBuying(BaseCase):
         
     def buy_ticket(self):
         self.click('#btn-buy-test_ticket_2')
-        self.type("#buy-ticket-quantity", 10)
+        self.type("#buy-ticket-quantity", 5)
         self.click('#buy-ticket-button')
 
     def test_posting(self):
@@ -50,8 +50,8 @@ class testBuying(BaseCase):
         self.sell_ticket()
         self.assert_element("#test_ticket_2")
 
-        initBalance = self.get_element("#user-balance").text
+        initBalance = int(self.get_element("#user-balance").text)
 
         self.buy_ticket()
-        self.assertFalse(self.get_element("#user-balance").text == initBalance)
+        self.assertTrue(int(self.get_element("#user-balance").text) < initBalance)
         self.open(base_url + '/logout')
