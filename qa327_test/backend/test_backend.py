@@ -8,7 +8,7 @@ from qa327.models import User
 Test validation of passwords
 (I know I Don't need '== True' or '== False', its for clear definitions of tests
 """
-class TestPassword(object):
+class TestBackendFunctions(object):
 
     def test_valid_password(self):
 
