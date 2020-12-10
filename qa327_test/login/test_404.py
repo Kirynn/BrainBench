@@ -30,16 +30,13 @@ class test404Page(BaseCase):
 		self.assert_element_not_present("#Error-funny")
 
 	def test404OnSell(self):
-		self.open(base_url + "/sell")
-		self.assert_element_not_present("#Error-funny")
+		assert str(self.get_link_status_code(base_url + "/sell")).startswith('40')
 
 	def test404OnBuy(self):
-		self.open(base_url + "/buy")
-		self.assert_element_not_present("#Error-funny")
+		assert str(self.get_link_status_code(base_url + "/buy")).startswith('40')
 
 	def test404OnUpdate(self):
-		self.open(base_url + "/update")
-		self.assert_element_not_present("#Error-funny")
+		assert str(self.get_link_status_code(base_url + "/update")).startswith('40')
 
 	def test404(self):
 		self.open(base_url + "/asdf")
