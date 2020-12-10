@@ -115,7 +115,7 @@ def check_if_expired(ticket : Ticket) -> bool:
 
     return ticket.date <= date.today().strftime("%Y%m%d")
 
-def validate_ticket_inputs(name, price, day, amount, user):
+def validate_ticket_inputs(name, price, day : str, amount, user):
 
     if re.sub(r'[^A-Za-z0-9 ]+', '', name) == None:
         return "Name must be alphanumeric"

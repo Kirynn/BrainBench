@@ -156,12 +156,11 @@ def buy_ticket(user):
     date = request.form.get('Date').replace("/", "")
     quantity = int(request.form.get('Quantity'))
 
-    print(request.form.to_dict())
-
     error_message = bn.buy_ticket(name, price, date, quantity, user)
 
     if error_message:
         session['error_message'] = error_message
+        
 
     # Any response will have the webpage reload itself.
     return ('', 200)
@@ -181,6 +180,7 @@ def update_ticket(user):
 
     if error_message:
         session['error_message'] = error_message
+        return ('', 400)
 
     # Any response will have the webpage reload itself.
     return ('', 200)
@@ -198,6 +198,7 @@ def sell_ticket(user):
 
     if error_message:
         session['error_message'] = error_message
+        return ('', 400)
 
     # Any response will have the webpage reload itself.
     return ('', 200)
