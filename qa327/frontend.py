@@ -180,6 +180,7 @@ def update_ticket(user):
 
     if error_message:
         session['error_message'] = error_message
+        #return render_template('index.html', user=user, tickets=bn.get_available_tickets(), msg="DSLFKDSJ")
         return ('', 400)
 
     # Any response will have the webpage reload itself.
@@ -198,7 +199,7 @@ def sell_ticket(user):
 
     if error_message:
         session['error_message'] = error_message
-        return ('', 400)
-
+        return render_template('index.html', user=user, tickets=bn.get_available_tickets(), msg=error_message)
+        
     # Any response will have the webpage reload itself.
     return ('', 200)
