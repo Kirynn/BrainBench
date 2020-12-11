@@ -1,6 +1,7 @@
 import pytest
 import requests
 from seleniumbase import BaseCase
+import time
 
 from qa327_test.conftest import base_url
 
@@ -12,6 +13,9 @@ def test_server_is_live():
 
 @pytest.mark.usefixtures('server')
 class homepageTest(BaseCase):
+	
+	def sleep(self, seconds):
+		time.sleep(seconds)
 
 	def testLogoutRedirect(self):
 		self.open(base_url + "/logout")
@@ -45,7 +49,7 @@ class homepageTest(BaseCase):
 		self.open(base_url + '/logout')
 		self.registerTestUser()
 		self.login()
-		self.assert_element('#balance')
+		self.assert_element('#user-balance')
 
 	def testTicket(self):
 		#Testing new ticket submission
@@ -55,8 +59,8 @@ class homepageTest(BaseCase):
 		self.click('#btn-add-ticket')
 		self.sleep(1)
 		self.type("#sell-ticket-name", "testTicket")
-		self.type("#sell-ticket-quantity", 10)
-		self.type("#sell-ticket-price", 20)
+		self.type("#sell-ticket-quantity", "10")
+		self.type("#sell-ticket-price", "20")
 		self.type("#sell-datetime", "2099/01/01")
 		self.click('#sell-ticket-button')
 
@@ -66,8 +70,8 @@ class homepageTest(BaseCase):
 		self.click('#btn-update-testTicket')
 		self.sleep(1)
 		self.type("#update-ticket-name", "testTicketUpdated")
-		self.type("#update-ticket-quantity", 15)
-		self.type("#update-ticket-price", 25)
+		self.type("#update-ticket-quantity", "15")
+		self.type("#update-ticket-price", "25")
 		self.type("#update-datetime", "2099/01/01")
 		self.click('#update-ticket-button')
 
@@ -76,7 +80,7 @@ class homepageTest(BaseCase):
 		#Testing purchasing of ticket
 		self.click('#btn-buy-testTicketUpdated')
 		self.sleep(1)
-		self.type("#buy-ticket-quantity", 10)
+		self.type("#buy-ticket-quantity", "10")
 		self.click("#buy-ticket-button")
 
 	def testLogoutButtonExists(self):
@@ -94,8 +98,8 @@ class homepageTest(BaseCase):
 		self.click('#btn-add-ticket')
 		self.sleep(1)
 		self.type("#sell-ticket-name", "postTicket")
-		self.type("#sell-ticket-quantity", 10)
-		self.type("#sell-ticket-price", 20)
+		self.type("#sell-ticket-quantity", "10")
+		self.type("#sell-ticket-price", "20")
 		self.type("#sell-datetime", "2099/01/01")
 		#Check for POST method in form
 		sellFormMethod = self.get_attribute("#sell-ticket-form", "method")
@@ -108,8 +112,8 @@ class homepageTest(BaseCase):
 		self.click('#btn-update-postTicket')
 		self.sleep(1)
 		self.type("#update-ticket-name", "postTicket")
-		self.type("#update-ticket-quantity", 15)
-		self.type("#update-ticket-price", 25)
+		self.type("#update-ticket-quantity", "15")
+		self.type("#update-ticket-price", "25")
 		self.type("#update-datetime", "2099/01/01")
 		#Check for POST method in form
 		updateFormMethod = self.get_attribute("#update-ticket-form", "method")
@@ -121,7 +125,7 @@ class homepageTest(BaseCase):
 		#Test for post on buy ticket
 		self.click('#btn-buy-postTicket')
 		self.sleep(1)
-		self.type("#buy-ticket-quantity", 10)
+		self.type("#buy-ticket-quantity", "10")
 		#Check for POST method in form
 		buyFormMethod = self.get_attribute("#buy-ticket-form", "method")
 		self.assert_equal(buyFormMethod, "post")
