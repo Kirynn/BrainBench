@@ -49,7 +49,7 @@ class homepageTest(BaseCase):
 		self.open(base_url + '/logout')
 		self.registerTestUser()
 		self.login()
-		self.assert_element('#balance')
+		self.assert_element('#user-balance')
 
 	def testTicket(self):
 		#Testing new ticket submission
