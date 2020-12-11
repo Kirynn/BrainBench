@@ -1,5 +1,6 @@
 import pytest
 import requests
+import time
 from seleniumbase import BaseCase
 
 from qa327_test.conftest import base_url
@@ -12,6 +13,10 @@ def test_server_is_live():
 
 @pytest.mark.usefixtures('server')
 class testPosting(BaseCase):
+
+    def sleep(self, seconds):
+        time.sleep(seconds)
+
     def register(self):
         """register new user"""
         self.open(base_url + '/register')
@@ -30,8 +35,9 @@ class testPosting(BaseCase):
 
     def sell_ticket(self):
         self.click('#btn-add-ticket')
-        self.type("#sell-ticket-name", "test_ticket_2")
-        self.type("#sell-ticket-quantity", 10)
+        self.sleep(2)
+        self.type("#sell-ticket-name", "test-post-ticket")
+        self.type("#sell-ticket-quantity", 90)
         self.type("#sell-ticket-price", 20)
         self.type("#sell-datetime", "20990101")
         self.click('#sell-ticket-button')
@@ -40,7 +46,7 @@ class testPosting(BaseCase):
         """ This test checks standard login for the Swag Labs store. """
         self.register()
         self.login()
-        self.open(base_url)
+        self.open(base_url + '/')
         self.sell_ticket()
-        self.assert_element("#test_ticket_2")
+        self.assert_element("#test-post-ticket")
         self.open(base_url + '/logout')
