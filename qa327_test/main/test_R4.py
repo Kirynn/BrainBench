@@ -110,7 +110,6 @@ class Tests_R4(BaseCase):
     def test_quantityZero_Positive(self): # Test case R4.3.1 
         """ /sell[POST] The quantity of the tickets has to be more than 0 - positive error case"""
         self.refresh()
-        self.sleep(2)
 
         self.click("#btn-add-ticket")
         self.type("#sell-ticket-name", "validName")
@@ -138,7 +137,6 @@ class Tests_R4(BaseCase):
     def test_quantityHundred_Positive(self): # Test case R4.3.2
         """ /sell[POST] The quantity of the tickets has to be less than or equal to 100 - positive error case"""
         self.refresh()
-        self.sleep(2)
 
         self.click("#btn-add-ticket")
         self.type("#sell-ticket-name", "validName")
