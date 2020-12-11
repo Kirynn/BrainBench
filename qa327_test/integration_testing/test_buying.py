@@ -37,14 +37,14 @@ class testBuying(BaseCase):
         self.click('#btn-add-ticket')
         self.sleep(1)
         self.type("#sell-ticket-name", "test buy ticket")
-        self.type("#sell-ticket-quantity", 90)
-        self.type("#sell-ticket-price", 20)
+        self.type("#sell-ticket-quantity", "90")
+        self.type("#sell-ticket-price", "20")
         self.type("#sell-datetime", "20990101")
         self.click('#sell-ticket-button')
 
     def buy_ticket(self):
         self.click('#btn-buy-test-buy-ticket')
-        self.type("#buy-ticket-quantity", 5)
+        self.type("#buy-ticket-quantity", "5")
         self.click('#buy-ticket-button')
 
     def test_posting(self):

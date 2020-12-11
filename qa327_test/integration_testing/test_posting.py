@@ -37,8 +37,8 @@ class testPosting(BaseCase):
         self.click('#btn-add-ticket')
         self.sleep(2)
         self.type("#sell-ticket-name", "test post ticket")
-        self.type("#sell-ticket-quantity", 90)
-        self.type("#sell-ticket-price", 20)
+        self.type("#sell-ticket-quantity", "90")
+        self.type("#sell-ticket-price", "20")
         self.type("#sell-datetime", "20990101")
         self.click('#sell-ticket-button')
 
