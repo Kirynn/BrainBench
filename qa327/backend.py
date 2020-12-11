@@ -201,3 +201,7 @@ def update_ticket(name : str, price : str, day : str, amount : str, user : User,
     ticket.date = day.replace("/", "")
 
     db.session.commit()
+
+def clean_database():
+    db.session.query(Ticket).delete()
+    db.session.commit()
