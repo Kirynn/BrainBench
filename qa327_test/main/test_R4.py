@@ -40,7 +40,6 @@ class Tests_R4(BaseCase):
         self.register()
         self.login()
         self.open(base_url)
-        self.sleep(2)
 
     def test_nameAlphaNumeric_Positive(self): # Test case R4.1.1 
         """ /sell[POST] The name of the ticket is alphanumeric - positive case"""
