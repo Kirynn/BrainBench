@@ -36,7 +36,7 @@ class testBuying(BaseCase):
     def sell_ticket(self):
         self.click('#btn-add-ticket')
         self.sleep(1)
-        self.type("#sell-ticket-name", "test-buy-ticket")
+        self.type("#sell-ticket-name", "test buy ticket")
         self.type("#sell-ticket-quantity", 90)
         self.type("#sell-ticket-price", 20)
         self.type("#sell-datetime", "20990101")
@@ -58,5 +58,6 @@ class testBuying(BaseCase):
         initBalance = int(self.get_element("#user-balance").text)
 
         self.buy_ticket()
+        self.sleep(3)
         self.assertTrue(int(self.get_element("#user-balance").text) < initBalance)
         self.open(base_url + '/logout')
