@@ -7,30 +7,6 @@
 👓
 💄
 
-<<<<<<< Updated upstream
-| Emoji Name   |                                                                                           | Emoji |
-|--------------|-------------------------------------------------------------------------------------------|-------|
-| : star2 :      | Introduce new features                                                                    |   🌟    |
-| : bug :        | Fix a bug                                                                                 |  🐛     |
-| : eyeglasses : | Improve of code readability                                                               |  👓    |
-| : lipstick :   | Modify of how something appears to end user (No changes to system's core behaviour)       |   💄    |
-
-- [ ] 🌟 
-- [ ] :bug:
-- [ ] :eyeglasses:
-- [ ] :lipstick:
-
-
-<em>The table above is just the changes pull requests have most frequently. If the above doesn't match
-your pull request changes check the [Emoji uses in depth](http://greena13.github.io/blog/2016/08/19/emojis-are-the-solution-to-useless-commit-messages/) </em>
-
-* **What is the current behavior?**
-    - Describe what the software was doing before you fixed it.
-
-* **What is the expected behavior?**
-    - Name the specification and the behaviour the software should demonstrate.
-=======
->>>>>>> Stashed changes
 
 ## Checklist:
 
@@ -44,7 +20,7 @@ your pull request changes check the [Emoji uses in depth](http://greena13.github
 
 
 
-## Don't remove this table! It's for future reference
+## Don't remove this table! It's for reference
 | Emoji Name   |                                                                                           | Emoji |
 |--------------|-------------------------------------------------------------------------------------------|-------|
 | :star2:      | Introduce new features                                                                    |   🌟    |
