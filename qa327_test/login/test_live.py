@@ -10,6 +10,13 @@ def test_server_is_live():
     r = requests.get(base_url)
     assert r.status_code == 200
 
+@pytest.mark.usefixtures('server')
+class NotLoggedInTest(BaseCase):
+
+    def test_not_logged_in(self):
+        self.open(base_url)
+        self.assert_element("#login_msg")
+        self.assert_text("Please Login", "#login_msg")
 
 @pytest.mark.usefixtures('server')
 class SimpleLoginTest(BaseCase):

@@ -11,12 +11,14 @@ http requests from the client (browser) through templating.
 The html templates are stored in the 'templates' folder. 
 """
 
+def get_error_message():
+    session.get('error_message')
+    return session.pop('error_message', None)
 
 @app.route('/register', methods=['GET'])
 def register_get():
     # templates are stored in the templates folder
     return render_template('register.html', message='')
-
 
 @app.route('/register', methods=['POST'])
 def register_post():
@@ -36,13 +38,11 @@ def register_post():
 def login_get():
 
     if not session.get("error_message") is None:
-        message = session.get('error_message')
-        session.pop('error_message', None)
+        message = get_error_message()
     else:
         message = "Please Login"
 
     return render_template('login.html', message=message)
-
 
 @app.route('/login', methods=['POST'])
 def login_post():
@@ -68,13 +68,11 @@ def login_post():
     else:
         return render_template('login.html', message='login failed')
 
-
 @app.route('/logout')
 def logout():
     if 'logged_in' in session:
         session.pop('logged_in', None)
     return redirect('/login')
-
 
 def authenticate(inner_function):
     """
@@ -109,24 +107,22 @@ def authenticate(inner_function):
     # return the wrapped version of the inner_function:
     return wrapped_inner
 
-
-@app.route('/')
+@app.route('/', methods=['GET'])
 @authenticate
 def profile(user):
     # authentication is done in the wrapper function
     # see above.
+
     # by using @authenticate, we don't need to re-write
     # the login checking code all the time for other
     # front-end portals
-    # TEMP as we have no way to add a ticket to the database ATM (part of R5).
-    tickets = [
-        Ticket(name="test", quantity=10, price=20, date="10/10/2020", creator=2),
-        Ticket(name="test 2", quantity=18, price=18, date="10/10/2020", creator=1),
-        Ticket(name="Vivan Rules", quantity=1, price=60, date="10/10/2020", creator=2)
-    ]
 
-    return render_template('index.html', user=user, tickets=tickets)
+    if not session.get("error_message") is None:
+        m = get_error_message()
+    else:
+        m = ''
 
+    return render_template('index.html', user=user, tickets=bn.get_available_tickets(), msg=m)
 
 @app.route('/*')
 @app.errorhandler(404)
@@ -143,7 +139,6 @@ def page_not_found(message):
 
     #Pick one of the messages at random
 
-
     return render_template("404.html", message=messages[random.randrange(len(messages))])
   
 @app.route('/viewPOST', methods=['POST'])
@@ -151,3 +146,58 @@ def view():
 
     print(request.form.to_dict())
     return ('', 204)
+
+@app.route('/buy', methods=['POST'], endpoint='buy_ticket')
+@authenticate
+def buy_ticket(user): 
+
+    name = request.form.get('Name').strip()
+    price = float(request.form.get('Price'))
+    date = request.form.get('Date').replace("/", "")
+    quantity = int(request.form.get('Quantity'))
+
+    print(request.form.to_dict())
+
+    error_message = bn.buy_ticket(name, price, date, quantity, user)
+
+    if error_message:
+        session['error_message'] = error_message
+
+    # Any response will have the webpage reload itself.
+    return ('', 200)
+    
+
+@app.route('/update', methods=['POST'], endpoint="update_ticket")
+@authenticate
+def update_ticket(user): 
+
+    name = request.form.get('Name').strip()
+    price = float(request.form.get('Price'))
+    date = request.form.get('Date').replace("/", "")
+    quantity = int(request.form.get('Quantity'))
+    ticket_id = int(request.form.get("Ticket_Id"))
+
+    error_message = bn.update_ticket(name, price, date, quantity, user, ticket_id)
+
+    if error_message:
+        session['error_message'] = error_message
+
+    # Any response will have the webpage reload itself.
+    return ('', 200)
+
+@app.route('/sell', methods=['POST'], endpoint="sell_ticket")
+@authenticate
+def sell_ticket(user): 
+
+    name = request.form.get('Name').strip()
+    price = float(request.form.get('Price'))
+    date = request.form.get('Date').replace("/", "")
+    quantity = int(request.form.get('Quantity'))
+
+    error_message = bn.sell_ticket(name, price, date, quantity, user)
+
+    if error_message:
+        session['error_message'] = error_message
+
+    # Any response will have the webpage reload itself.
+    return ('', 200)
