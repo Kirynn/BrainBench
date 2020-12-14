@@ -141,6 +141,9 @@ def buy_ticket(name : str, price : float, day : str, amount : int, user : User) 
 
     errors = validate_ticket_inputs(name, price, day, amount, user)
 
+    price *= amount
+    price += price * 0.35 + price * 0.5
+
     if (errors != None): return errors
 
     price *= amount
