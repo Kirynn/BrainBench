@@ -1,5 +1,13 @@
-const buyModal = "#buy-modal"
-const updateModal = "#update-modal"
+const buyModal = "#buy-modal";
+const updateModal = "#update-modal";
+const serviceFee = 0.35;
+const tax = 0.05;
+
+function calculateCost(price, amount) {
+
+    let costOfTickets = price * amount;
+    return costOfTickets + (costOfTickets * tax) + (costOfTickets + serviceFee);
+}
 
 function SubmitForm(formid, location) {
     
@@ -21,7 +29,11 @@ function SubmitForm(formid, location) {
 function LoadBuyModal(name, quantity, price, date) {
 
     $(buyModal).modal('show');
-    $(buyModal).find("#cost-output").html(`Cost: \$${$(buyModal).find("input[name='Price']").val() * $(buyModal).find("input[name='Quantity']").val()}`)
+
+    let quantityEl = $(buyModal).find("input[name='Quantity']");
+    let priceEl = $(buyModal).find("input[name='Price']");
+
+    $(buyModal).find("#cost-output").html(`Cost: \$${calculateCost(priceEl.val(), quantityEl.val())}`);
 
     $(buyModal).find("input[name='Quantity']").attr("max", quantity);
     $(buyModal).find("#buy-max").html("Max available " + quantity + ".");
@@ -31,7 +43,7 @@ function LoadBuyModal(name, quantity, price, date) {
     $(buyModal).find("input[name='Date']").val(date);
 
     $(buyModal).find("input[name='Quantity']").change(function() {
-        $(buyModal).find("#cost-output").html(`Cost: \$${$(buyModal).find("input[name='Price']").val() * $(buyModal).find("input[name='Quantity']").val()}`)        
+        $(buyModal).find("#cost-output").html(`Cost: \$${calculateCost(priceEl.val(), quantityEl.val())}`);        
     });
 }
 

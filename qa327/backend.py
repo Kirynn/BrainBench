@@ -141,6 +141,9 @@ def buy_ticket(name : str, price : float, day : str, amount : int, user : User) 
 
     errors = validate_ticket_inputs(name, price, day, amount, user)
 
+    price *= amount
+    price += price * 0.35 + price * 0.5
+
     if (errors != None): return errors
 
     ticket = Ticket.query.filter_by(name=name).filter_by(date=day).first()
@@ -157,10 +160,6 @@ def buy_ticket(name : str, price : float, day : str, amount : int, user : User) 
     ticket.quantity -= amount
     user.balance -= price
     order = Order(user_id=user.id, ticket_id=ticket.id, quantity=amount)
-    
-    print(ticket)
-    print(user)
-    print(order)
 
     db.session.add(order)
     db.session.commit()
