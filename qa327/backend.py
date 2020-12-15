@@ -45,6 +45,11 @@ def get_user(email : str) -> Optional[User]:
     user = User.query.filter_by(email=email).first()
     return user
 
+def add_user_funds(user : User, amount) -> None:
+
+    user.balance += amount
+    db.session.commit()
+
 def login_user(email, password):
     """
     Check user authentication by comparing the password
