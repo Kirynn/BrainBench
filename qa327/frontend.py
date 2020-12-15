@@ -200,5 +200,6 @@ def sell_ticket(user):
         session['error_message'] = error_message
         return render_template('index.html', user=user, tickets=bn.get_available_tickets(), msg=error_message)
 
+
     # Any response will have the webpage reload itself.
     return ('', 200)
