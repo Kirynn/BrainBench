@@ -2,7 +2,7 @@ import pytest
 import requests
 
 from qa327 import backend
-from qa327.models import User
+from qa327.models import db, User
 from werkzeug.security import generate_password_hash
 from seleniumbase import BaseCase
 import time
@@ -18,6 +18,9 @@ def test_server_is_live():
 
 @pytest.mark.usefixtures('server')
 class buyFormTesting(BaseCase):
+	"""***ALL NAME RELATED TESTS ARE SKIPPED SINCE YOU CANNOT PUT IN A NAME FOR /BUY***"""
+
+
 	def sleep(self, seconds):
 		time.sleep(seconds)
 
@@ -82,7 +85,6 @@ class buyFormTesting(BaseCase):
 		self.click("#btn-buy-testAmountSU")
 		self.sleep(1)
 		self.type("#buy-ticket-quantity", "50")
-		self.sleep(10)
 		self.click("#buy-ticket-button")
 		#No error message
 		self.assert_text_not_visible("", "#error_msg")
@@ -149,4 +151,28 @@ class buyFormTesting(BaseCase):
 		self.open(base_url + "/logout")
 		self.registerTestUser()
 		self.login()
-		backend.add_user_funds(10)
+		backend.add_user_funds("test_frontend@test.com", 50)
+		self.createTestTicket("testLowPrice", 1, 10)
+		self.click("#btn-buy-testLowPrice")
+		self.sleep(1)
+		self.type("#buy-ticket-quantity", "1")
+		self.click("#buy-ticket-button")
+		#No error message
+		self.assert_text_not_visible("", "#error_msg")
+		backend.clean_database()
+
+	#R6.4.1 - The user has enough funds to purchase the ticket
+	def testUserDoesntHaveBalance(self):
+		self.open(base_url + "/logout")
+		self.registerTestUser()
+		self.login()
+		backend.add_user_funds("test_frontend@test.com", -10000)
+		self.createTestTicket("testCantAfford", 1, 10)
+		self.click("#btn-buy-testCantAfford")
+		self.sleep(1)
+		self.type("#buy-ticket-quantity", "1")
+		self.click("#buy-ticket-button")
+		#No error message
+		self.assert_text("You do not have enough funds to purchase this", "#error_msg")
+		backend.add_user_funds("test_frontend@test.com", 10000)
+		backend.clean_database()
