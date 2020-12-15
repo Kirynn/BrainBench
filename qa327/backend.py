@@ -142,14 +142,16 @@ def validate_ticket_inputs(name, price, day, amount, user):
 def buy_ticket(name : str, price : float, day : str, amount : int, user : User) -> Union[str, None]:
 
     errors = validate_ticket_inputs(name, price, day, amount, user)
+    if (errors != None): return errors
 
     price *= amount
-    price += price * 0.35 + price * 0.5
+    price += (price * 0.35) + (price * 0.05)
+
+    print(f'User Balance: {user.balance}')
+    print(f'Ticket Price: {price}')
 
     if user.balance < price:
         return "You do not have enough funds to purchase this"
-
-    if (errors != None): return errors
 
     ticket = Ticket.query.filter_by(name=name).filter_by(date=day).first()
 
@@ -158,9 +160,6 @@ def buy_ticket(name : str, price : float, day : str, amount : int, user : User) 
 
     if (ticket.quantity < amount):
         return "There are not enough tickets available"
-
-    if (user.balance < price):
-        return "You do not have enough money to purcahse the tickets"
 
     ticket.quantity -= amount
     user.balance -= price
