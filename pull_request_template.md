@@ -20,7 +20,9 @@
 
 
 
+
 ## Don't remove this table! It's for future reference
+
 | Emoji Name   |                                                                                           | Emoji |
 |--------------|-------------------------------------------------------------------------------------------|-------|
 | :star2:      | Introduce new features                                                                    |   🌟    |
