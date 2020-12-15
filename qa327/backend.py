@@ -45,6 +45,12 @@ def get_user(email : str) -> Optional[User]:
     user = User.query.filter_by(email=email).first()
     return user
 
+def add_user_funds(email : str, amount) -> None:
+
+    user = get_user(email)
+    user.balance += amount
+    db.session.commit()
+
 def login_user(email, password):
     """
     Check user authentication by comparing the password
@@ -123,14 +129,8 @@ def validate_ticket_inputs(name, price, day : str, amount, user):
     if not (len(name) in range(6, 61)):
         return "Name length must be between 6 and 60 characters"
 
-    if not (price in range(10, 101)):
-        return "Please enter an amount between 10 and 100"
-
     if datetime.strptime(day, '%Y%m%d').date() < date.today():
         return "This ticket has expired"
-
-    if user.balance < price:
-        return "You do not have enough funds to purchase this"
 
     if not (amount in range(1, 101)):
         return "Please select 1 to 100 tickets"
@@ -140,11 +140,16 @@ def validate_ticket_inputs(name, price, day : str, amount, user):
 def buy_ticket(name : str, price : float, day : str, amount : int, user : User) -> Union[str, None]:
 
     errors = validate_ticket_inputs(name, price, day, amount, user)
-
     if (errors != None): return errors
 
     price *= amount
-    price += price * 0.35 + price * 0.5
+    price += (price * 0.35) + (price * 0.05)
+
+    print(f'User Balance: {user.balance}')
+    print(f'Ticket Price: {price}')
+
+    if user.balance < price:
+        return "You do not have enough funds to purchase this"
 
     ticket = Ticket.query.filter_by(name=name).filter_by(date=day).first()
 
@@ -154,11 +159,8 @@ def buy_ticket(name : str, price : float, day : str, amount : int, user : User) 
     if (ticket.quantity < amount):
         return "There are not enough tickets available"
 
-    if (user.balance < price):
-        return "You do not have enough money to purchase the tickets"
-
     ticket.quantity -= amount
-    user.balance -= price * amount
+    user.balance -= price
     order = Order(user_id=user.id, ticket_id=ticket.id, quantity=amount)
 
     db.session.add(order)
@@ -169,6 +171,9 @@ def sell_ticket(name : str, price : float, day : str, amount : int, user : User)
     errors = validate_ticket_inputs(name, price, day, amount, user)
 
     if (errors != None): return errors
+
+    if not (price in range(10, 101)):
+        return "Please enter an amount between 10 and 100"
 
     if (Ticket.query.filter_by(name=name).filter_by(date=day).first() != None):
         return "There is a ticket already specified"
@@ -184,20 +189,17 @@ def update_ticket(name : str, price : str, day : str, amount : str, user : User,
 
     if (errors != None): return errors
 
+    if not (price in range(10, 101)):
+        return "Please enter an amount between 10 and 100"
+
     ticket = Ticket.query.filter_by(id=ticket_id).first()
 
     if (ticket == None):
         return "The requested ticket was not found"
 
-    if (ticket.quantity > amount):
-        return "There are not enough tickets available"
-
-    if (user.balance < price):
-        return "You do not have enough money to purcahse the tickets"
-
     ticket.name = name
     ticket.price = price
-    ticket.quantity = price
+    ticket.quantity = amount
     ticket.date = day.replace("/", "")
 
     db.session.commit()
