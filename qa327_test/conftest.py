@@ -39,4 +39,3 @@ def server(request):
         yield
         server.shutdown()
         time.sleep(2)
-            

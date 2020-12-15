@@ -1,5 +1,6 @@
 import pytest
 import requests
+import time
 from seleniumbase import BaseCase
 
 from qa327_test.conftest import base_url
@@ -7,19 +8,14 @@ from qa327_test.conftest import base_url
 
 @pytest.mark.usefixtures('server')
 def test_server_is_live():
-    r = requests.get(base_url)
-    assert r.status_code == 200
+	r = requests.get(base_url)
+	assert r.status_code == 200
 
 @pytest.mark.usefixtures('server')
-class NotLoggedInTest(BaseCase):
+class testPosting(BaseCase):
 
-    def test_not_logged_in(self):
-        self.open(base_url)
-        self.assert_element("#login_msg")
-        self.assert_text("Please Login", "#login_msg")
-
-@pytest.mark.usefixtures('server')
-class SimpleLoginTest(BaseCase):
+    def sleep(self, seconds):
+        time.sleep(seconds)
 
     def register(self):
         """register new user"""
@@ -37,10 +33,20 @@ class SimpleLoginTest(BaseCase):
         self.type("#password", "PYTESTpassword!")
         self.click('input[type="submit"]')
 
-    def test_register_login(self):
+    def sell_ticket(self):
+        self.click('#btn-add-ticket')
+        self.sleep(2)
+        self.type("#sell-ticket-name", "test post ticket")
+        self.type("#sell-ticket-quantity", "90")
+        self.type("#sell-ticket-price", "20")
+        self.type("#sell-datetime", "20990101")
+        self.click('#sell-ticket-button')
+
+    def test_posting(self):
         """ This test checks standard login for the Swag Labs store. """
         self.register()
         self.login()
         self.open(base_url + '/')
-        self.assert_element("#welcome-header")
-        self.assert_text("Welcome pytest", "#welcome-header")
+        self.sell_ticket()
+        self.assert_element("#test-post-ticket")
+        self.open(base_url + '/logout')

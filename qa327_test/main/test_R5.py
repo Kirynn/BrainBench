@@ -39,7 +39,6 @@ class CreatingTickets(BaseCase):
 
     # Actual testing begins
     def test_check_login(self):
-
         """ This test checks standard login for the Swag Labs store. """        
         self.open(base_url + '/logout')
         self.register()
