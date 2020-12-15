@@ -45,8 +45,9 @@ def get_user(email : str) -> Optional[User]:
     user = User.query.filter_by(email=email).first()
     return user
 
-def add_user_funds(user : User, amount) -> None:
+def add_user_funds(email : str, amount) -> None:
 
+    user = get_user(email)
     user.balance += amount
     db.session.commit()
 
