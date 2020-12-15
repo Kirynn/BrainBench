@@ -144,10 +144,10 @@ def validate_ticket_inputs(name, price, day : str, amount, user):
 
 def buy_ticket(name : str, price : float, day : str, amount : int, user : User) -> Union[str, None]:
 
-    errors = validate_ticket_inputs(name, price, day, amount, user)
-
     price *= amount
     price += price * 0.35 + price * 0.5
+
+    errors = validate_ticket_inputs(name, price, day, amount, user)
 
     if (errors != None): return errors
 
