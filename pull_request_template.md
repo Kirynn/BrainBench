@@ -20,7 +20,7 @@
 
 
 
-## Don't remove this table! It's for future reference
+## Don't remove this table! It's for reference
 | Emoji Name   |                                                                                           | Emoji |
 |--------------|-------------------------------------------------------------------------------------------|-------|
 | :star2:      | Introduce new features                                                                    |   🌟    |
