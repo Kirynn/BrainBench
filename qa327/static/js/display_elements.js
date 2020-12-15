@@ -20,7 +20,9 @@ function SubmitForm(formid, location) {
         console.log(data);
     }
 
-    if (el.attr('method') == 'POST') $.post(location, data, function(res) {console.log(res); window.location.reload()});
+    if (el.attr('method') == 'POST') $.post(location, data)
+        .done(function() { window.location.reload()})
+        .fail(function() { window.location.reload()})
     else if(el.attr('method') == 'PUT') $.put(location, data);
 
     $(`#${formid}-modal`).modal('hide');

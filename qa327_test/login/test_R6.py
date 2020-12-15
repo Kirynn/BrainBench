@@ -57,7 +57,8 @@ class buyFormTesting(BaseCase):
 		self.type("#buy-ticket-quantity", "1")
 		self.click("#buy-ticket-button")
 		#No error message
-		self.assert_text_not_visible("", "ticketname-error")
+		self.assert_text_not_visible("", "#error_msg")
+		backend.clean_database()
 
 	def testTicketAmountFailLower(self):
 		self.open(base_url + "/logout")
@@ -69,7 +70,8 @@ class buyFormTesting(BaseCase):
 		self.type("#buy-ticket-quantity", "0")
 		self.click("#buy-ticket-button")
 		#Verify error message
-		self.assert_text("Please select 1 to 100 tickets", "#ticketname-error")
+		self.assert_text("Please select 1 to 100 tickets", "#error_msg")
+		backend.clean_database()
 
 	#R6.2.2 - The user can only order at most 100 tickets
 	def testTicketAmountSuccessUpper(self):
@@ -80,9 +82,11 @@ class buyFormTesting(BaseCase):
 		self.click("#btn-buy-testAmountSU")
 		self.sleep(1)
 		self.type("#buy-ticket-quantity", "50")
+		self.sleep(10)
 		self.click("#buy-ticket-button")
 		#No error message
-		self.assert_text_not_visible("", "ticketname-error")
+		self.assert_text_not_visible("", "#error_msg")
+		backend.clean_database()
 
 	def testTicketAmountFailUpper(self):
 		self.open(base_url + "/logout")
@@ -94,7 +98,8 @@ class buyFormTesting(BaseCase):
 		self.type("#buy-ticket-quantity", "200")
 		self.click("#buy-ticket-button")
 		#Verify error message
-		self.assert_text("Please select 1 to 100 tickets", "#ticketname-error")
+		self.assert_text("Please select 1 to 100 tickets", "#error_msg")
+		backend.clean_database()
 
 
 	#R6.3.1 - The requested ticket is in the database
@@ -104,13 +109,19 @@ class buyFormTesting(BaseCase):
 		self.login()
 		self.createTestTicket("existingTicket", 99, 10)
 		self.assert_element("#btn-buy-existingTicket")
+		backend.clean_database()
 
 	#R6.3.1 - The requested ticket is in the database
 	def testTicketNotExist(self):
 		self.open(base_url + "/logout")
 		self.registerTestUser()
 		self.login()
-		self.assert_element_not_present("#btn-buy-notExistingTicket")
+		try:
+			#The element should not exist so this should raise an exception
+			self.assert_element("#btn-buy-notExistingTicket")
+		except:
+			#When an exception is raised, then the test has passed
+			self.assert_true(True)
 
 	def testTicketInStock(self):
 		self.open(base_url + "/logout")
@@ -120,12 +131,22 @@ class buyFormTesting(BaseCase):
 		self.click("#btn-buy-testStock")
 		self.sleep(1)
 		self.type("#buy-ticket-quantity", "1")
+		self.click("#buy-ticket-button")
 		#Verify no error
-		self.assert_text_not_visible("", "ticketname-error")
+		self.assert_text_not_visible("", "#error_msg")
 
 		self.sleep(1)
 		self.click("#btn-buy-testStock")
 		self.sleep(1)
 		self.type("#buy-ticket-quantity", "1")
+		self.click("#buy-ticket-button")
 		#Verify error message
-		self.assert_text("There are not enough tickets available", "#ticketname-error")
+		self.assert_text("There are not enough tickets available", "#error_msg")
+		backend.clean_database()
+
+	#R6.4.1 - The user has enough funds to purchase the ticket
+	def testUserHasBalance(self):
+		self.open(base_url + "/logout")
+		self.registerTestUser()
+		self.login()
+		backend.add_user_funds(10)

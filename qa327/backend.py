@@ -120,12 +120,12 @@ def check_if_expired(ticket : Ticket) -> bool:
 
     return ticket.date <= date.today().strftime("%Y%m%d")
 
-def validate_ticket_inputs(name, price, day, amount, user):
+def validate_ticket_inputs(name, price, day : str, amount, user):
 
-    if re.sub(r'[^A-Za-z0-9 ]+', '', name) == None:
+    if not bool(re.search(r'^[A-Za-z0-9 ]*$', name)):
         return "Name must be alphanumeric"
 
-    if (6 > len(name) > 60):
+    if not (len(name) in range(6, 61)):
         return "Name length must be between 6 and 60 characters"
 
     if datetime.strptime(day, '%Y%m%d').date() < date.today():
@@ -159,7 +159,7 @@ def buy_ticket(name : str, price : float, day : str, amount : int, user : User) 
         return "There are not enough tickets available"
 
     ticket.quantity -= amount
-    user.balance -= price
+    user.balance -= price * amount
     order = Order(user_id=user.id, ticket_id=ticket.id, quantity=amount)
 
     db.session.add(order)
@@ -207,4 +207,8 @@ def update_ticket(name : str, price : str, day : str, amount : str, user : User,
     ticket.quantity = amount
     ticket.date = day.replace("/", "")
 
+    db.session.commit()
+
+def clean_database():
+    db.session.query(Ticket).delete()
     db.session.commit()
