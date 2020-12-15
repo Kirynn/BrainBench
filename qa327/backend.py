@@ -134,9 +134,6 @@ def validate_ticket_inputs(name, price, day, amount, user):
     if datetime.strptime(day, '%Y%m%d').date() < date.today():
         return "This ticket has expired"
 
-    if user.balance < price:
-        return "You do not have enough funds to purchase this"
-
     if not (amount in range(1, 101)):
         return "Please select 1 to 100 tickets"
 
@@ -144,10 +141,13 @@ def validate_ticket_inputs(name, price, day, amount, user):
 
 def buy_ticket(name : str, price : float, day : str, amount : int, user : User) -> Union[str, None]:
 
+    errors = validate_ticket_inputs(name, price, day, amount, user)
+
     price *= amount
     price += price * 0.35 + price * 0.5
 
-    errors = validate_ticket_inputs(name, price, day, amount, user)
+    if user.balance < price:
+        return "You do not have enough funds to purchase this"
 
     if (errors != None): return errors
 
@@ -194,15 +194,15 @@ def update_ticket(name : str, price : str, day : str, amount : str, user : User,
     if (ticket == None):
         return "The requested ticket was not found"
 
-    if (ticket.quantity > amount):
-        return "There are not enough tickets available"
+    # if (ticket.quantity > amount):
+    #     return "There are not enough tickets available"
 
-    if (user.balance < price):
-        return "You do not have enough money to purcahse the tickets"
+    # if (user.balance < price):
+    #     return "You do not have enough money to purcahse the tickets"
 
     ticket.name = name
     ticket.price = price
-    ticket.quantity = price
+    ticket.quantity = amount
     ticket.date = day.replace("/", "")
 
     db.session.commit()
