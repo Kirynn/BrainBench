@@ -128,9 +128,6 @@ def validate_ticket_inputs(name, price, day, amount, user):
     if (6 > len(name) > 60):
         return "Name length must be between 6 and 60 characters"
 
-    if not (price in range(10, 101)):
-        return "Please enter an amount between 10 and 100"
-
     if datetime.strptime(day, '%Y%m%d').date() < date.today():
         return "This ticket has expired"
 
@@ -174,6 +171,9 @@ def sell_ticket(name : str, price : float, day : str, amount : int, user : User)
 
     if (errors != None): return errors
 
+    if not (price in range(10, 101)):
+        return "Please enter an amount between 10 and 100"
+
     if (Ticket.query.filter_by(name=name).filter_by(date=day).first() != None):
         return "There is a ticket already specified"
 
@@ -187,6 +187,9 @@ def update_ticket(name : str, price : str, day : str, amount : str, user : User,
     errors = validate_ticket_inputs(name, price, day, amount, user)
 
     if (errors != None): return errors
+
+    if not (price in range(10, 101)):
+        return "Please enter an amount between 10 and 100"
 
     ticket = Ticket.query.filter_by(id=ticket_id).first()
 
