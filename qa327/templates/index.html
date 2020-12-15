@@ -13,7 +13,7 @@
 
 <section id="main" class="my-4">
 
-    <h3>{{msg}}</h3>
+    <h3 id="error_msg">{{msg}}</h3>
 
     <div class="container mb-3">
         <div class="row">
@@ -37,11 +37,11 @@
         <tbody>
             {% if not tickets == None %}
             {% for ticket in tickets %}
-            <tr id={{ticket.name}} class="ticket">
+            <tr id={{ticket.name|replace(' ', '-')}} class="ticket">
                 <td class="ticket-name">{{ticket.name}}</td>
                 <td class="ticket-quantity-available">{{ticket.quantity}}</td>
                 <td class="ticket-quantity-available">{{ticket.price}}</td>
-                <td><button class="btn btn-link p-0" id="btn-buy-{{ticket.name}}" onclick="LoadBuyModal('{{ticket.name}}', {{ticket.quantity}}, {{ticket.price}}, '{{ticket.date}}' )">Buy Ticket</button></td>
+                <td><button class="btn btn-link p-0" id="btn-buy-{{ticket.name|replace(' ', '-')}}" onclick="LoadBuyModal('{{ticket.name}}', {{ticket.quantity}}, {{ticket.price}}, '{{ticket.date}}' )">Buy Ticket</button></td>
             </tr>
             {% endfor %}
             {% else %}

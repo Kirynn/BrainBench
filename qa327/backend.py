@@ -155,15 +155,11 @@ def buy_ticket(name : str, price : float, day : str, amount : int, user : User) 
         return "There are not enough tickets available"
 
     if (user.balance < price):
-        return "You do not have enough money to purcahse the tickets"
+        return "You do not have enough money to purchase the tickets"
 
     ticket.quantity -= amount
-    user.balance -= price
+    user.balance -= price * amount
     order = Order(user_id=user.id, ticket_id=ticket.id, quantity=amount)
-    
-    print(ticket)
-    print(user)
-    print(order)
 
     db.session.add(order)
     db.session.commit()
